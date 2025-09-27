@@ -1,4 +1,3 @@
-// src/pages/Home.js
 import React from "react";
 
 export default function Home() {
@@ -6,25 +5,31 @@ export default function Home() {
     <div>
       {/* Hero */}
       <section
-        className="relative bg-cover bg-center h-[600px] flex items-center"
+        className="relative bg-cover bg-center h-[500px] flex items-center"
         style={{
           backgroundImage:
             "url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=80')",
         }}
       >
         <div className="max-w-7xl mx-auto px-6 text-white">
-          <h1 className="text-5xl font-bold drop-shadow-lg">
+          <h1 className="text-3xl md:text-5xl font-bold drop-shadow-lg leading-snug">
             Certified Compliance & HR Solutions
           </h1>
-          <p className="mt-4 text-lg drop-shadow-md max-w-xl">
+          <p className="mt-4 text-base md:text-lg drop-shadow-md max-w-xl">
             Helping factories and exporters become audit-ready, achieve certifications and
             maintain statutory compliance with confidence.
           </p>
-          <div className="mt-6 flex gap-4">
-            <a href="/contact" className="px-6 py-3 bg-emerald-400 text-white rounded-lg font-semibold">
+          <div className="mt-6 flex flex-col sm:flex-row gap-4">
+            <a
+              href="/contact"
+              className="px-6 py-3 bg-emerald-400 text-white rounded-lg font-semibold text-center"
+            >
               Get Assessment
             </a>
-            <a href="/services" className="px-6 py-3 border border-white rounded-lg text-white">
+            <a
+              href="/services"
+              className="px-6 py-3 border border-white rounded-lg text-white text-center"
+            >
               Our Services
             </a>
           </div>
@@ -32,9 +37,11 @@ export default function Home() {
       </section>
 
       {/* Services Preview */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-center mb-10">Our Key Services</h2>
-        <div className="grid md:grid-cols-3 gap-8">
+      <section className="max-w-7xl mx-auto px-6 py-12 md:py-16">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
+          Our Key Services
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {[
             "Social Compliance Audit",
             "SA 8000 Certification",
@@ -43,19 +50,31 @@ export default function Home() {
             "HR Consulting",
             "ESI / PF Compliance",
           ].map((s) => (
-            <div key={s} className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+            <div
+              key={s}
+              className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition"
+            >
               <h3 className="text-lg font-semibold text-green-600">{s}</h3>
-              <p className="mt-3 text-gray-600">Professional advisory and audit readiness solutions.</p>
+              <p className="mt-3 text-gray-600">
+                Professional advisory and audit readiness solutions.
+              </p>
             </div>
           ))}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-gradient-to-r from-sky-600 to-emerald-400 text-white py-16 text-center">
-        <h3 className="text-2xl font-bold">Ready to become audit-ready?</h3>
-        <p className="mt-2">Request a quick assessment and roadmap from our experts today.</p>
-        <a href="/contact" className="mt-6 inline-block px-6 py-3 bg-white text-sky-700 rounded-md font-semibold">
+      <section className="bg-gradient-to-r from-sky-600 to-emerald-400 text-white py-12 md:py-16 text-center px-6">
+        <h3 className="text-xl md:text-2xl font-bold">
+          Ready to become audit-ready?
+        </h3>
+        <p className="mt-2 text-sm md:text-base">
+          Request a quick assessment and roadmap from our experts today.
+        </p>
+        <a
+          href="/contact"
+          className="mt-6 inline-block px-6 py-3 bg-white text-sky-700 rounded-md font-semibold"
+        >
           Request Assessment
         </a>
       </section>
