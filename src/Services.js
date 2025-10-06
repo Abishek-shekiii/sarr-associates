@@ -1,18 +1,25 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  CheckCircle,
+  ClipboardCheck,
+  ShieldCheck,
+  Globe,
+  FileText,
+  Factory,
+  Briefcase,
+  Building2,
+  GraduationCap,
+  Truck,
+  Leaf,
+  Droplets,
+  BarChart3,
   Users,
+  Scale,
   Lightbulb,
   Target,
-  ClipboardCheck,
-  Globe,
-  Briefcase,
-  Factory,
-  GraduationCap,
-  ShieldCheck,
-  FileText,
+  CheckCircle
 } from "lucide-react";
+
 import { motion, AnimatePresence } from "framer-motion";
 
 // Service data with icons & creative sections
@@ -21,11 +28,12 @@ const SERVICES = [
     id: 1,
     title: "Social Compliance Audit",
     summary: "End-to-end audits to meet buyer and legal compliance needs.",
-    icon: <ClipboardCheck className="w-10 h-10 text-sky-600" />,
+    icon: <Building2 className="w-10 h-10 text-sky-600" />,
+    image: "/images/social_complaince_home.jpg",
     overview:
       "A detailed review of your factory’s compliance with international labor laws, ethical practices, worker safety, and social accountability standards.",
     value:
-      "Global buyers mandate compliance audits. Passing them not only avoids shipment delays but also builds long-term credibility and trust with your partners.",
+      "Global buyers mandate compliance audits. Passing them builds long-term credibility and trust with your partners.",
     audience:
       "Best suited for exporters, garment factories, and suppliers working with European, US, and global buyers.",
     benefits: [
@@ -40,6 +48,7 @@ const SERVICES = [
     title: "SA 8000 Certification",
     summary: "World’s leading social accountability certification.",
     icon: <ShieldCheck className="w-10 h-10 text-emerald-500" />,
+    image: "/images/SA_8000_home.jpg",
     overview:
       "SA 8000 is a global benchmark covering workplace ethics, labor rights, and safety standards.",
     value:
@@ -58,6 +67,7 @@ const SERVICES = [
     title: "ISO Certifications",
     summary: "Quality, safety & environment standards for global business.",
     icon: <Globe className="w-10 h-10 text-indigo-500" />,
+    image: "/images/ISO_home.jpg",
     overview:
       "We guide companies through ISO 9001 (Quality), ISO 14001 (Environment), and ISO 45001 (Occupational Health & Safety).",
     value:
@@ -75,7 +85,8 @@ const SERVICES = [
     id: 4,
     title: "BSCI & WRAP Support",
     summary: "Prepare your factory for international buyer audits.",
-    icon: <FileText className="w-10 h-10 text-pink-500" />,
+    icon: <Scale className="w-10 h-10 text-pink-500" />,
+    image: "/images/BSCI_home.jpg",
     overview:
       "BSCI and WRAP ensure responsible supply chains with fair labor and ethical manufacturing.",
     value:
@@ -93,7 +104,8 @@ const SERVICES = [
     id: 5,
     title: "OEKO TEX / GOTS / GRS",
     summary: "Sustainability certifications for textiles and apparel.",
-    icon: <Factory className="w-10 h-10 text-orange-500" />,
+    icon: <Leaf className="w-10 h-10 text-green-600" />,
+    image: "/images/Oeko_tex.jpg",
     overview:
       "We help businesses achieve OEKO TEX, GOTS, and GRS certifications for safe, organic, and recycled textiles.",
     value:
@@ -112,6 +124,7 @@ const SERVICES = [
     title: "HR Consulting",
     summary: "Professional HR advisory for compliance and workforce management.",
     icon: <Briefcase className="w-10 h-10 text-yellow-500" />,
+    image: "/images/hr_home.jpg",
     overview:
       "We streamline HR systems covering policies, payroll, compliance, performance management, and dispute resolution.",
     value:
@@ -130,6 +143,7 @@ const SERVICES = [
     title: "ESI / PF / Factories Act",
     summary: "Statutory compliance for Indian labor laws.",
     icon: <FileText className="w-10 h-10 text-red-500" />,
+    image: "/images/pf_home.jpg",
     overview:
       "We help businesses comply with statutory requirements under ESI, PF, and Factories Act regulations.",
     value:
@@ -148,6 +162,7 @@ const SERVICES = [
     title: "Training & Capacity Building",
     summary: "Skill development and compliance training for staff.",
     icon: <GraduationCap className="w-10 h-10 text-purple-500" />,
+    image: "/images/training.jpg",
     overview:
       "We conduct training programs for workers, supervisors, and managers on compliance, safety, and audits.",
     value:
@@ -161,11 +176,125 @@ const SERVICES = [
       "Compliance awareness programs",
     ],
   },
+  {
+    id: 9,
+    title: "CTPAT (Customs Trade Partnership Against Terrorism)",
+    summary: "Enhance supply chain security and US trade compliance.",
+    icon: <Truck className="w-10 h-10 text-cyan-600" />,
+    image: "/images/ctpat.jpg",
+    overview:
+      "CTPAT is a voluntary supply chain security program led by U.S. Customs to safeguard global trade against terrorism threats.",
+    value:
+      "CTPAT certification boosts credibility with U.S. importers and ensures seamless customs clearance with fewer inspections.",
+    audience:
+      "Exporters, logistics firms, and manufacturers trading with the U.S.",
+    benefits: [
+      "Risk assessment & mitigation planning",
+      "Supply chain security audits",
+      "Documentation & SOP development",
+      "Customs compliance training",
+    ],
+  },
+  {
+    id: 10,
+    title: "FSC (Forest Stewardship Council Certification)",
+    summary: "Responsible sourcing and chain of custody certification.",
+    icon: <Leaf className="w-10 h-10 text-emerald-600" />,
+    image: "/images/fsc.jpg",
+    overview:
+      "FSC ensures materials come from responsibly managed forests, promoting environmental sustainability and ethical sourcing.",
+    value:
+      "An FSC label on your products demonstrates commitment to responsible forest management, preferred by eco-conscious buyers.",
+    audience:
+      "Paper, packaging, furniture, and wood-based product manufacturers.",
+    benefits: [
+      "FSC documentation & traceability setup",
+      "Supplier verification",
+      "Internal audit preparation",
+      "Certification body coordination",
+    ],
+  },
+  {
+    id: 11,
+    title: "FEM (Facility Environmental Module)",
+    summary: "Environmental performance assessment under Higg Index.",
+    icon: <Droplets className="w-10 h-10 text-teal-500" />,
+    image: "/images/fem.jpg",
+    overview:
+      "FEM helps factories measure and improve their environmental impact — from energy use to waste management and water conservation.",
+    value:
+      "Improving FEM scores enhances sustainability reputation and meets brand buyer environmental requirements.",
+    audience:
+      "Apparel, textile, and leather manufacturing units audited under Higg Index.",
+    benefits: [
+      "Data collection and FEM self-assessment support",
+      "Performance improvement roadmap",
+      "Waste, water, and energy optimization strategies",
+      "Brand submission guidance",
+    ],
+  },
+  {
+    id: 12,
+    title: "HIGG Index (Sustainability Assessment)",
+    summary: "Evaluate and improve environmental and social performance.",
+    icon: <BarChart3 className="w-10 h-10 text-blue-500" />,
+    image: "/images/higg.jpg",
+    overview:
+      "The Higg Index helps manufacturers assess sustainability through verified modules on environment, social, and labor practices.",
+    value:
+      "Brands worldwide use Higg data for supplier selection, rewarding responsible manufacturing.",
+    audience:
+      "Factories, suppliers, and brands committed to sustainability benchmarking.",
+    benefits: [
+      "Higg FEM & FSLM data guidance",
+      "Sustainability metric reporting",
+      "Brand communication support",
+      "Improvement tracking systems",
+    ],
+  },
+  {
+    id: 13,
+    title: "SLCP (Social & Labor Convergence Program)",
+    summary: "Harmonized labor data collection for global brands.",
+    icon: <Users className="w-10 h-10 text-pink-600" />,
+    image: "/images/slcp.jpg",
+    overview:
+      "SLCP replaces repetitive social audits with a unified assessment framework shared across brands and facilities.",
+    value:
+      "Reduces audit fatigue and demonstrates transparency in social and labor compliance practices.",
+    audience:
+      "Factories and facilities supplying to multiple international brands.",
+    benefits: [
+      "SLCP data collection tool training",
+      "Verification body coordination",
+      "Facility self-assessment guidance",
+      "Improvement plan creation",
+    ],
+  },
 ];
 
 export default function Services() {
   const [selectedService, setSelectedService] = useState(null);
-
+  const handleCardClick = (event, service) => {
+    // Prevent modal from opening when user is selecting text
+    const selection = window.getSelection();
+    if (selection && selection.toString().length > 0) {
+      return; // user was copying or selecting text
+    }
+  
+    // Prevent modal from opening on right-click (desktop)
+    if (event.type === "contextmenu" || event.button === 2) {
+      return;
+    }
+  
+    // Prevent accidental open on long-press (mobile)
+    if (event.touches && event.touches.length > 1) {
+      return;
+    }
+  
+    // Otherwise, open modal
+    setSelectedService(service);
+  };
   return (
     <div className="relative py-20 px-6 bg-gradient-to-br from-sky-50 via-white to-emerald-50">
       <div className="relative max-w-7xl mx-auto">
@@ -173,29 +302,53 @@ export default function Services() {
           Our Services
         </h1>
 
-        {/* Services Grid */}
+        {/* Service Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {SERVICES.map((service, i) => (
             <motion.div
               key={service.id}
-              className="bg-white/80 backdrop-blur-md rounded-xl shadow-lg p-6 text-center cursor-pointer border border-sky-100 hover:border-emerald-200"
-              initial={{ opacity: 0, scale: 0.85 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              whileHover={{ scale: 1.05 }}
-              onClick={() => setSelectedService(service)}
+              className="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-white transition-all duration-300 hover:shadow-2xl"
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.05 }}
+              whileHover={{
+                y: -8,
+                scale: 1.02,
+                transition: { duration: 0.3 },
+              }}
+              whileTap={{
+                scale: 0.97,
+                transition: { duration: 0.2 },
+              }}
+              onClick={(e) => handleCardClick(e, service)}
             >
-              <div className="flex justify-center mb-4">{service.icon}</div>
-              <h2 className="text-lg md:text-xl font-semibold text-sky-800">
-                {service.title}
-              </h2>
-              <p className="text-sm text-gray-600 mt-2">{service.summary}</p>
+          
+              {/* Image background */}
+              <div className="relative h-52 overflow-hidden">
+                <motion.img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover"
+                  whileHover={{ y: -5, filter: "brightness(0.9)" }}
+                  transition={{ duration: 0.4 }}
+                />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition"></div>
+              </div>
+
+              {/* Content below image */}
+              <div className="p-6 text-center">
+                <div className="flex justify-center mb-3">{service.icon}</div>
+                <h2 className="text-lg md:text-xl font-semibold text-sky-800">
+                  {service.title}
+                </h2>
+                <p className="text-sm text-gray-600 mt-2">{service.summary}</p>
+              </div>
             </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Modal with full info */}
       <AnimatePresence>
         {selectedService && (
           <motion.div
@@ -208,10 +361,9 @@ export default function Services() {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.15 }}
-              className="bg-white rounded-2xl shadow-xl max-w-lg w-full p-8 relative overflow-y-auto max-h-[90vh]"
+              transition={{ duration: 0.2 }}
+              className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 relative overflow-y-auto max-h-[90vh]"
             >
-              {/* Close button */}
               <button
                 onClick={() => setSelectedService(null)}
                 className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl"
@@ -250,7 +402,6 @@ export default function Services() {
                 </ul>
               </div>
 
-              {/* Actions */}
               <div className="mt-6 flex justify-between items-center">
                 <button
                   onClick={() => setSelectedService(null)}

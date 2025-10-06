@@ -84,37 +84,37 @@ export default function Home() {
       name: "Social Compliance Audit",
       desc: "Independent audits to identify gaps, reduce risks, and build buyer confidence.",
       image:
-        "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1600&q=80",
+        "/images/social_complaince_home.jpg",
     },
     {
       name: "SA 8000 Certification",
-      desc: "Globally recognized certification for ethical and responsible workplaces.",
+      desc: "Globally recognized certification  for ethical and responsible workplaces.",
       image:
-        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
+        "/images/SA_8000_home.jpg",
     },
     {
       name: "BSCI & WRAP Support",
       desc: "Helping businesses align with international buyer codes of conduct.",
       image:
-        "https://images.unsplash.com/photo-1560264280-88b68371db39?auto=format&fit=crop&w=800&q=80",
+        "/images/BSCI_home.jpg",
     },
     {
       name: "ISO Standards",
       desc: "ISO 9001, 14001, 45001 — enhancing quality, safety, and sustainability across industries.",
       image:
-        "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80",
+        "/images/ISO_home.jpg",
     },
     {
       name: "HR Consulting",
       desc: "Policies, payroll, and people management aligned to compliance and growth.",
       image:
-        "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
+        "/images/hr_home.jpg",
     },
     {
       name: "ESI / PF / Factories Act",
       desc: "Complete statutory compliance management with zero penalties.",
       image:
-        "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80",
+        "/images/pf_home.jpg",
     },
   ];
 
@@ -157,29 +157,39 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-center mb-12 text-sky-800">
           Our Core Services
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
           {services.map((s, i) => (
             <motion.div
               key={s.name}
-              className="relative rounded-2xl shadow-lg overflow-hidden group cursor-pointer"
+              className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition transform hover:-translate-y-1 duration-500"
               initial={{ opacity: 0, y: 80 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.15 }}
             >
-              <img
-                src={s.image}
-                alt={s.name}
-                className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent"></div>
-              <div className="relative p-6 text-white">
-                <h3 className="text-xl font-bold">{s.name}</h3>
-                <p className="mt-3 text-sm">{s.desc}</p>
+              {/* Image section */}
+              <div className="relative w-full h-56 overflow-hidden">
+                <img
+                  src={s.image}
+                  alt={s.name}
+                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+              </div>
+
+              {/* Text section */}
+              <div className="p-6 text-center">
+                <h3 className="text-xl font-bold text-sky-700 group-hover:text-emerald-600 transition">
+                  {s.name}
+                </h3>
+                <p className="mt-3 text-gray-600 text-sm leading-relaxed">
+                  {s.desc}
+                </p>
               </div>
             </motion.div>
           ))}
         </div>
       </section>
+
 
       {/* About */}
       <section

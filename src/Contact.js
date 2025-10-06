@@ -197,7 +197,7 @@ export default function Contact() {
             {/* Service */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Service
+                Service <span className="text-red-500">*</span>
               </label>
               <select
                 name="sertvice"
@@ -206,26 +206,34 @@ export default function Contact() {
                 className="w-full border p-3 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none"
               >
                 <option value="">Select Service</option>
-                <option value="Social Compliance Audit">
-                  Social Compliance Audit
-                </option>
-                <option value="SA 8000 Certification">
-                  SA 8000 Certification
-                </option>
-                <option value="ISO Certifications">ISO Certifications</option>
                 <option value="BSCI & WRAP Support">BSCI & WRAP Support</option>
-                <option value="OEKO TEX / GOTS / GRS">
-                  OEKO TEX / GOTS / GRS
+                <option value="CTPAT (Customs Trade Partnership Against Terrorism)">
+                  CTPAT (Customs Trade Partnership Against Terrorism)
+                </option>
+                <option value="ESI / PF / Factories Act">ESI / PF / Factories Act</option>
+                <option value="FEM (Facility Environmental Module)">
+                  FEM (Facility Environmental Module)
+                </option>
+                <option value="FSC (Forest Stewardship Council Certification)">
+                  FSC (Forest Stewardship Council Certification)
+                </option>
+                <option value="HIGG Index (Sustainability Assessment)">
+                  HIGG Index (Sustainability Assessment)
                 </option>
                 <option value="HR Consulting">HR Consulting</option>
-                <option value="ESI / PF / Factories Act">
-                  ESI / PF / Factories Act
+                <option value="ISO Certifications">ISO Certifications</option>
+                <option value="OEKO TEX / GOTS / GRS">OEKO TEX / GOTS / GRS</option>
+                <option value="SA 8000 Certification">SA 8000 Certification</option>
+                <option value="SLCP (Social & Labor Convergence Program)">
+                  SLCP (Social & Labor Convergence Program)
                 </option>
+                <option value="Social Compliance Audit">Social Compliance Audit</option>
                 <option value="Training & Capacity Building">
                   Training & Capacity Building
                 </option>
               </select>
             </div>
+
 
             {/* Mobile */}
             <div>

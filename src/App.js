@@ -18,7 +18,7 @@ function BottomNav() {
   ];
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t shadow-lg flex justify-around py-2 z-[9999]">
+    <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t shadow-lg flex justify-evenly items-center py-2 px-2 z-[9999]">
       {navItems.map((item) => (
         <Link
           key={item.to}
@@ -34,6 +34,7 @@ function BottomNav() {
     </div>
   );
 }
+
 
 export default function App() {
   return (
