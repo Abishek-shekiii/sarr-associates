@@ -6,6 +6,8 @@ import Home from "./Home";
 // import About from "./About";
 import Services from "./Services";
 import Contact from "./Contact";
+import ScrollToTop from "./ScrollToTop";
+
 
 function BottomNav() {
   const location = useLocation();
@@ -39,9 +41,10 @@ function BottomNav() {
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen bg-gray-50 text-slate-900 flex flex-col">
         {/* Navbar (Desktop only) */}
-        <nav className="bg-white shadow sticky top-0 z-50 hidden md:block">
+        <nav className="bg-white shadow fixed top-0 left-0 w-full z-50 hidden md:block">
           <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center gap-3">
@@ -80,7 +83,7 @@ export default function App() {
         </nav>
 
         {/* Routes */}
-        <div className="flex-1">
+        <div className="flex-1 mt-[70px]">
           <Routes>
             <Route path="/" element={<Home />} />
             {/* <Route path="/about" element={<About />} /> */}
