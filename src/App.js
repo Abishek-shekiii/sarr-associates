@@ -104,6 +104,38 @@ export default function App() {
           </div>
         </footer>
 
+        {/* Mobile Top Bar */}
+        <div className="md:hidden fixed top-0 left-0 w-full backdrop-blur-md bg-white/95 shadow-md flex justify-between items-center px-4 py-2 z-[9999] pt-[env(safe-area-inset-top)]">
+          {/* Left: Logo + Name */}
+          <div className="flex items-center gap-2">
+            {/* Gradient Icon */}
+            <div className="w-9 h-9 flex items-center justify-center rounded-lg bg-gradient-to-br from-sky-700 to-emerald-400 text-white font-extrabold text-sm shadow-md shrink-0">
+              SA
+            </div>
+
+            {/* Brand Text */}
+            <div className="flex flex-col leading-tight">
+              <span className="text-sm font-bold text-sky-700">SARR Associates</span>
+              <span className="text-[11px] text-gray-500">Social Compliance • HR</span>
+            </div>
+          </div>
+
+          {/* Right: Phone + Quote */}
+          <div className="flex items-center gap-3">
+            <a
+              href="tel:+919900000000"
+              className="text-sky-600 text-[13px] font-semibold tracking-wide"
+            >
+              +91 99xxxx xxxx
+            </a>
+            {/* <a
+              href="/contact"
+              className="bg-gradient-to-r from-sky-600 to-emerald-400 text-white text-xs font-semibold px-3 py-1 rounded-md shadow hover:opacity-90 transition"
+            >
+              Quote
+            </a> */}
+          </div>
+        </div>
 
         {/* Mobile Bottom Nav */}
         <BottomNav />

@@ -121,63 +121,6 @@ const SERVICES = [
   },
   {
     id: 6,
-    title: "HR Consulting",
-    summary: "Professional HR advisory for compliance and workforce management.",
-    icon: <Briefcase className="w-10 h-10 text-yellow-500" />,
-    image: "/images/hr_home.jpg",
-    overview:
-      "We streamline HR systems covering policies, payroll, compliance, performance management, and dispute resolution.",
-    value:
-      "Strong HR practices improve retention, boost efficiency, and ensure compliance with labor laws.",
-    audience:
-      "Factories, industries, and businesses employing 50+ staff.",
-    benefits: [
-      "HR manual drafting",
-      "Payroll & attendance systems",
-      "Labor law compliance checks",
-      "Performance tracking tools",
-    ],
-  },
-  {
-    id: 7,
-    title: "ESI / PF / Factories Act",
-    summary: "Statutory compliance for Indian labor laws.",
-    icon: <FileText className="w-10 h-10 text-red-500" />,
-    image: "/images/pf_home.jpg",
-    overview:
-      "We help businesses comply with statutory requirements under ESI, PF, and Factories Act regulations.",
-    value:
-      "Avoid penalties, disputes, and reputational risks by ensuring timely compliance with labor laws.",
-    audience:
-      "Manufacturers, factories, and industries employing contract or permanent staff.",
-    benefits: [
-      "Registration & monthly filings",
-      "Audit & inspection handling",
-      "Dispute resolution",
-      "Compliance reporting",
-    ],
-  },
-  {
-    id: 8,
-    title: "Training & Capacity Building",
-    summary: "Skill development and compliance training for staff.",
-    icon: <GraduationCap className="w-10 h-10 text-purple-500" />,
-    image: "/images/training.jpg",
-    overview:
-      "We conduct training programs for workers, supervisors, and managers on compliance, safety, and audits.",
-    value:
-      "Training empowers employees, reduces risks, and ensures smooth buyer audits.",
-    audience:
-      "Workers, compliance teams, supervisors, and factory management.",
-    benefits: [
-      "Custom training workshops",
-      "Simulation audits",
-      "Leadership skill development",
-      "Compliance awareness programs",
-    ],
-  },
-  {
-    id: 9,
     title: "CTPAT (Customs Trade Partnership Against Terrorism)",
     summary: "Enhance supply chain security and US trade compliance.",
     icon: <Truck className="w-10 h-10 text-cyan-600" />,
@@ -196,7 +139,7 @@ const SERVICES = [
     ],
   },
   {
-    id: 10,
+    id: 7,
     title: "FSC (Forest Stewardship Council Certification)",
     summary: "Responsible sourcing and chain of custody certification.",
     icon: <Leaf className="w-10 h-10 text-emerald-600" />,
@@ -215,7 +158,7 @@ const SERVICES = [
     ],
   },
   {
-    id: 11,
+    id: 8,
     title: "FEM (Facility Environmental Module)",
     summary: "Environmental performance assessment under Higg Index.",
     icon: <Droplets className="w-10 h-10 text-teal-500" />,
@@ -234,7 +177,7 @@ const SERVICES = [
     ],
   },
   {
-    id: 12,
+    id: 9,
     title: "HIGG Index (Sustainability Assessment)",
     summary: "Evaluate and improve environmental and social performance.",
     icon: <BarChart3 className="w-10 h-10 text-blue-500" />,
@@ -253,7 +196,7 @@ const SERVICES = [
     ],
   },
   {
-    id: 13,
+    id: 10,
     title: "SLCP (Social & Labor Convergence Program)",
     summary: "Harmonized labor data collection for global brands.",
     icon: <Users className="w-10 h-10 text-pink-600" />,
@@ -269,6 +212,64 @@ const SERVICES = [
       "Verification body coordination",
       "Facility self-assessment guidance",
       "Improvement plan creation",
+    ],
+  },
+  
+  {
+    id: 11,
+    title: "ESI / PF / Factories Act",
+    summary: "Statutory compliance for Indian labor laws.",
+    icon: <FileText className="w-10 h-10 text-red-500" />,
+    image: "/images/pf_home.jpg",
+    overview:
+      "We help businesses comply with statutory requirements under ESI, PF, and Factories Act regulations.",
+    value:
+      "Avoid penalties, disputes, and reputational risks by ensuring timely compliance with labor laws.",
+    audience:
+      "Manufacturers, factories, and industries employing contract or permanent staff.",
+    benefits: [
+      "Registration & monthly filings",
+      "Audit & inspection handling",
+      "Dispute resolution",
+      "Compliance reporting",
+    ],
+  },
+  {
+    id: 12,
+    title: "Training & Capacity Building",
+    summary: "Skill development and compliance training for staff.",
+    icon: <GraduationCap className="w-10 h-10 text-purple-500" />,
+    image: "/images/training.jpg",
+    overview:
+      "We conduct training programs for workers, supervisors, and managers on compliance, safety, and audits.",
+    value:
+      "Training empowers employees, reduces risks, and ensures smooth buyer audits.",
+    audience:
+      "Workers, compliance teams, supervisors, and factory management.",
+    benefits: [
+      "Custom training workshops",
+      "Simulation audits",
+      "Leadership skill development",
+      "Compliance awareness programs",
+    ],
+  },
+  {
+    id: 13,
+    title: "HR Consulting",
+    summary: "Professional HR advisory for compliance and workforce management.",
+    icon: <Briefcase className="w-10 h-10 text-yellow-500" />,
+    image: "/images/hr_home.jpg",
+    overview:
+      "We streamline HR systems covering policies, payroll, compliance, performance management, and dispute resolution.",
+    value:
+      "Strong HR practices improve retention, boost efficiency, and ensure compliance with labor laws.",
+    audience:
+      "Factories, industries, and businesses employing 50+ staff.",
+    benefits: [
+      "HR manual drafting",
+      "Payroll & attendance systems",
+      "Labor law compliance checks",
+      "Performance tracking tools",
     ],
   },
 ];

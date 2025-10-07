@@ -1,41 +1,61 @@
+/* ----------------------------------------------------------
+   Base Tailwind Layers
+----------------------------------------------------------- */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Brand Theme */
+/* ----------------------------------------------------------
+   Global Brand Styling — SARR Associates
+----------------------------------------------------------- */
 :root {
-  --brand-blue: #0f172a;
-  --brand-green: #10b981;
-  --brand-light: #f0fdfa;
-  --brand-accent: #0284c7;
-  --brand-gray: #f9fafb;
+  --brand-blue: #0f172a;       /* Deep Navy */
+  --brand-green: #10b981;      /* Emerald */
+  --brand-light: #f0fdfa;      /* Soft Light Green */
+  --brand-accent: #0284c7;     /* Sky Blue */
+  --brand-gray: #f9fafb;       /* Background Gray */
 }
 
-/* Global layout */
-html, body {
+/* ----------------------------------------------------------
+   Global Reset & Layout Fixes
+----------------------------------------------------------- */
+html,
+body {
+  margin: 0;
+  padding: 0;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  background-color: var(--brand-gray);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Fix top white gap issue on mobile browsers */
 body {
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background-color: var(--brand-gray);
+  padding-top: env(safe-area-inset-top, 0);
 }
 
-/* Smooth transitions for all UI elements */
+/* ----------------------------------------------------------
+   Global Transitions & Media Rendering
+----------------------------------------------------------- */
 * {
   transition: all 0.3s ease-in-out;
+  box-sizing: border-box;
 }
 
-/* Image clarity */
 img {
+  width: 100%;
+  height: auto;
   image-rendering: auto;
   -webkit-backface-visibility: hidden;
+  display: block;
 }
 
-/* Custom scrollbar (desktop only) */
+/* ----------------------------------------------------------
+   Custom Scrollbar Styling (desktop only)
+----------------------------------------------------------- */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -48,4 +68,52 @@ img {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom, var(--brand-green), var(--brand-blue));
+}
+
+/* ----------------------------------------------------------
+   Utility Helpers
+----------------------------------------------------------- */
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--brand-blue), var(--brand-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ----------------------------------------------------------
+   Responsive Fixes
+----------------------------------------------------------- */
+@media (max-width: 768px) {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: var(--brand-gray);
+  }
+
+  /* Ensure hero or first section starts at top without gaps */
+  #home,
+  section:first-of-type {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Prevent mobile bottom nav overlap with content */
+  main,
+  .flex-1 {
+    padding-bottom: 80px;
+  }
 }
