@@ -83,7 +83,7 @@ export default function App() {
         </nav>
 
         {/* Routes */}
-        <div className="flex-1 mt-[70px]">
+        <div className="flex-1 mt-[75px] md:mt-[70px]">
           <Routes>
             <Route path="/" element={<Home />} />
             {/* <Route path="/about" element={<About />} /> */}
@@ -105,18 +105,22 @@ export default function App() {
         </footer>
 
         {/* Mobile Top Bar */}
-        <div className="md:hidden fixed top-0 left-0 w-full backdrop-blur-md bg-white/95 shadow-md flex justify-between items-center px-4 py-2 z-[9999] pt-[env(safe-area-inset-top)]">
+        <div
+          className="md:hidden fixed top-0 left-0 w-full backdrop-blur-md bg-white/95 shadow-md flex justify-between items-center px-4 py-2 z-[9999]"
+          style={{
+            paddingTop: "calc(env(safe-area-inset-top, 0px) + 8px)", // adds dynamic + extra gap
+            paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 8px)",
+          }}
+        >
           {/* Left: Logo + Name */}
           <div className="flex items-center gap-2">
-            {/* Gradient Icon */}
             <div className="w-9 h-9 flex items-center justify-center rounded-lg bg-gradient-to-br from-sky-700 to-emerald-400 text-white font-extrabold text-sm shadow-md shrink-0">
               SA
             </div>
 
-            {/* Brand Text */}
             <div className="flex flex-col leading-tight">
               <span className="text-sm font-bold text-sky-700">SARR Associates</span>
-              <span className="text-[11px] text-gray-500">Social Compliance • HR</span>
+              <span className="text-[11px] text-gray-500">Compliance • Certifiaction • HR</span>
             </div>
           </div>
 
@@ -126,8 +130,9 @@ export default function App() {
               href="tel:+919900000000"
               className="text-sky-600 text-[13px] font-semibold tracking-wide"
             >
-              +91 99xxxx xxxx
+              +91 99xxxxxxxx
             </a>
+            {/* Optional Quote Button */}
             {/* <a
               href="/contact"
               className="bg-gradient-to-r from-sky-600 to-emerald-400 text-white text-xs font-semibold px-3 py-1 rounded-md shadow hover:opacity-90 transition"
@@ -136,7 +141,6 @@ export default function App() {
             </a> */}
           </div>
         </div>
-
         {/* Mobile Bottom Nav */}
         <BottomNav />
       </div>
