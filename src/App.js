@@ -48,8 +48,12 @@ export default function App() {
           <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-700 to-emerald-400 text-white flex items-center justify-center font-extrabold">
-                SA
+              <div className="w-9 h-9 rounded-lg overflow-hidden shadow-md shrink-0">
+                <img
+                  src="/images/favicon/sarr_favicon.png"
+                  alt="SARR Associates Logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <div className="text-lg font-bold">SARR Associates</div>
@@ -114,8 +118,12 @@ export default function App() {
         >
           {/* Left: Logo + Name */}
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 flex items-center justify-center rounded-lg bg-gradient-to-br from-sky-700 to-emerald-400 text-white font-extrabold text-sm shadow-md shrink-0">
-              SA
+            <div className="w-9 h-9 rounded-lg overflow-hidden shadow-md shrink-0">
+              <img
+                src="/images/favicon/sarr_favicon.png"
+                alt="SARR Associates Logo"
+                className="w-full h-full object-cover"
+              />
             </div>
 
             <div className="flex flex-col leading-tight">
