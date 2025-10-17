@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   ClipboardCheck,
@@ -17,10 +17,14 @@ import {
   Scale,
   Lightbulb,
   Target,
-  CheckCircle
+  CheckCircle,
+  Recycle,
+  Sprout,
+  Trees
 } from "lucide-react";
 
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 // Service data with icons & creative sections
 const SERVICES = [
@@ -102,6 +106,25 @@ const SERVICES = [
   },
   {
     id: 5,
+    title: "5S Implementation (Workplace Excellence)",
+    summary: "Boost productivity and safety with organized workspaces.",
+    icon: <Factory className="w-10 h-10 text-orange-500" />,
+    image: "/images/5s_home.jpg",
+    overview:
+      "5S is a workplace organization system focusing on Sort, Set in order, Shine, Standardize, and Sustain — improving efficiency and morale.",
+    value:
+      "Implementing 5S builds a clean, safe, and disciplined work culture that enhances quality and audit readiness.",
+    audience:
+      "Factories, production units, warehouses, and offices aiming for lean management.",
+    benefits: [
+      "On-site 5S training and implementation support",
+      "Visual management setup",
+      "Audit and continuous improvement tracking",
+      "Employee awareness sessions",
+    ],
+  },
+  {
+    id: 6,
     title: "OEKO TEX / GOTS / GRS",
     summary: "Sustainability certifications for textiles and apparel.",
     icon: <Leaf className="w-10 h-10 text-green-600" />,
@@ -120,7 +143,7 @@ const SERVICES = [
     ],
   },
   {
-    id: 6,
+    id: 7,
     title: "CTPAT (Customs Trade Partnership Against Terrorism)",
     summary: "Enhance supply chain security and US trade compliance.",
     icon: <Truck className="w-10 h-10 text-cyan-600" />,
@@ -139,10 +162,10 @@ const SERVICES = [
     ],
   },
   {
-    id: 7,
+    id: 8,
     title: "FSC (Forest Stewardship Council Certification)",
     summary: "Responsible sourcing and chain of custody certification.",
-    icon: <Leaf className="w-10 h-10 text-emerald-600" />,
+    icon: <Trees className="w-10 h-10 text-emerald-600" />,
     image: "/images/fsc.jpg",
     overview:
       "FSC ensures materials come from responsibly managed forests, promoting environmental sustainability and ethical sourcing.",
@@ -158,7 +181,27 @@ const SERVICES = [
     ],
   },
   {
-    id: 8,
+    id: 9,
+    title: "OCS (Organic Content Standard) Certification Support",
+    summary:
+      "Ensure the integrity of organic content in your products with verified supply chain certification.",
+    icon: <Sprout className="w-10 h-10 text-green-500" />,
+    image: "/images/ocs_service.jpg",
+    overview:
+      "The Organic Content Standard (OCS) verifies the presence and amount of organic material in a final product. It ensures traceability of organic inputs from source to finished goods, improving consumer trust and brand value.",
+    value:
+      "SARR Associates provides end-to-end guidance for OCS implementation — from raw material verification to transaction certificate support, ensuring your organic claims meet buyer expectations.",
+    audience:
+      "Apparel, textile, and home furnishing exporters using organic cotton or other certified raw materials.",
+    benefits: [
+      "OCS documentation and process alignment",
+      "Supply chain mapping and transaction certificate support",
+      "Training for staff on standard requirements",
+      "Support for third-party audit readiness",
+    ],
+  },
+  {
+    id: 10,
     title: "FEM (Facility Environmental Module)",
     summary: "Environmental performance assessment under Higg Index.",
     icon: <Droplets className="w-10 h-10 text-teal-500" />,
@@ -177,7 +220,27 @@ const SERVICES = [
     ],
   },
   {
-    id: 9,
+    id: 11,
+    title: "RCS (Recycled Claim Standard) Certification Support",
+    summary:
+      "Demonstrate the authenticity of recycled materials in your products with traceable certification.",
+    icon: <Recycle className="w-10 h-10 text-emerald-600" />,
+    image: "/images/rcs_service.jpg",
+    overview:
+      "The Recycled Claim Standard (RCS) verifies recycled content in products and tracks it throughout the supply chain. It supports sustainable sourcing and transparency in material recycling claims.",
+    value:
+      "We assist organizations in preparing all necessary documentation, supplier validations, and audit readiness to achieve RCS certification efficiently.",
+    audience:
+      "Textile, garment, and packaging companies using recycled polyester, nylon, or other post-consumer materials.",
+    benefits: [
+      "Guidance on RCS requirements and documentation",
+      "Transaction certificate (TC) and supplier verification support",
+      "Training for staff and compliance teams",
+      "End-to-end audit preparation and closure support",
+    ],
+  },
+  {
+    id: 12,
     title: "HIGG Index (Sustainability Assessment)",
     summary: "Evaluate and improve environmental and social performance.",
     icon: <BarChart3 className="w-10 h-10 text-blue-500" />,
@@ -196,7 +259,7 @@ const SERVICES = [
     ],
   },
   {
-    id: 10,
+    id: 13,
     title: "SLCP (Social & Labor Convergence Program)",
     summary: "Harmonized labor data collection for global brands.",
     icon: <Users className="w-10 h-10 text-pink-600" />,
@@ -216,7 +279,7 @@ const SERVICES = [
   },
   
   {
-    id: 11,
+    id: 14,
     title: "ESI / PF / Factories Act",
     summary: "Statutory compliance for Indian labor laws.",
     icon: <FileText className="w-10 h-10 text-red-500" />,
@@ -235,7 +298,7 @@ const SERVICES = [
     ],
   },
   {
-    id: 12,
+    id: 15,
     title: "Training & Capacity Building",
     summary: "Skill development and compliance training for staff.",
     icon: <GraduationCap className="w-10 h-10 text-purple-500" />,
@@ -254,7 +317,7 @@ const SERVICES = [
     ],
   },
   {
-    id: 13,
+    id: 16,
     title: "HR Consulting",
     summary: "Professional HR advisory for compliance and workforce management.",
     icon: <Briefcase className="w-10 h-10 text-yellow-500" />,
@@ -271,39 +334,53 @@ const SERVICES = [
       "Labor law compliance checks",
       "Performance tracking tools",
     ],
-  },
+  }, 
 ];
 
 export default function Services() {
   const [selectedService, setSelectedService] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const location = useLocation();
+  const openServiceFromHome = location.state?.openService;
+
+  // Auto-open modal if navigated from Home
+  useEffect(() => {
+    if (openServiceFromHome) {
+      const normalized = openServiceFromHome.toLowerCase();
+
+      const matchedService =
+        SERVICES.find((s) =>
+          normalized.includes(s.title.toLowerCase().split(" ")[0])
+        ) ||
+        SERVICES.find((s) =>
+          normalized.includes(s.title.toLowerCase())
+        );
+
+      if (matchedService) {
+        setSelectedService(matchedService);
+        setIsModalOpen(true);
+      }
+    }
+  }, [openServiceFromHome]);
+
   const handleCardClick = (event, service) => {
-    // Prevent modal from opening when user is selecting text
     const selection = window.getSelection();
-    if (selection && selection.toString().length > 0) {
-      return; // user was copying or selecting text
-    }
-  
-    // Prevent modal from opening on right-click (desktop)
-    if (event.type === "contextmenu" || event.button === 2) {
-      return;
-    }
-  
-    // Prevent accidental open on long-press (mobile)
-    if (event.touches && event.touches.length > 1) {
-      return;
-    }
-  
-    // Otherwise, open modal
+    if (selection && selection.toString().length > 0) return;
+    if (event.type === "contextmenu" || event.button === 2) return;
+    if (event.touches && event.touches.length > 1) return;
+
     setSelectedService(service);
+    setIsModalOpen(true);
   };
+
   return (
     <div className="relative py-20 px-6 bg-gradient-to-br from-sky-50 via-white to-emerald-50">
       <div className="relative max-w-7xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-12 text-sky-800">
-          Our Services
+          Service Portfolio
         </h1>
 
-        {/* Service Grid */}
+        {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {SERVICES.map((service, i) => (
             <motion.div
@@ -317,14 +394,8 @@ export default function Services() {
                 scale: 1.02,
                 transition: { duration: 0.3 },
               }}
-              whileTap={{
-                scale: 0.97,
-                transition: { duration: 0.2 },
-              }}
               onClick={(e) => handleCardClick(e, service)}
             >
-          
-              {/* Image background */}
               <div className="relative h-52 overflow-hidden">
                 <motion.img
                   src={service.image}
@@ -333,10 +404,9 @@ export default function Services() {
                   whileHover={{ y: -5, filter: "brightness(0.9)" }}
                   transition={{ duration: 0.4 }}
                 />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition"></div>
               </div>
 
-              {/* Content below image */}
               <div className="p-6 text-center">
                 <div className="flex justify-center mb-3">{service.icon}</div>
                 <h2 className="text-lg md:text-xl font-semibold text-sky-800">
@@ -349,9 +419,9 @@ export default function Services() {
         </div>
       </div>
 
-      {/* Modal with full info */}
+      {/* Modal */}
       <AnimatePresence>
-        {selectedService && (
+        {isModalOpen && selectedService && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -366,7 +436,10 @@ export default function Services() {
               className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 relative overflow-y-auto max-h-[90vh]"
             >
               <button
-                onClick={() => setSelectedService(null)}
+                onClick={() => {
+                  setSelectedService(null);
+                  setIsModalOpen(false);
+                }}
                 className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl"
               >
                 ✖
@@ -405,7 +478,10 @@ export default function Services() {
 
               <div className="mt-6 flex justify-between items-center">
                 <button
-                  onClick={() => setSelectedService(null)}
+                  onClick={() => {
+                    setSelectedService(null);
+                    setIsModalOpen(false);
+                  }}
                   className="px-5 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition"
                 >
                   Close

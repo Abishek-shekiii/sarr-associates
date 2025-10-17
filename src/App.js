@@ -73,8 +73,8 @@ export default function App() {
 
             {/* Actions */}
             <div className="flex items-center gap-4">
-              <a className="text-sm text-gray-600" href="tel:+919900000000">
-                +91 99xxxx xxxx
+              <a className="text-sm text-gray-600" href="tel:+919994813672">
+                +91 9994813672
               </a>
               <Link
                 to="/contact"
@@ -135,10 +135,10 @@ export default function App() {
           {/* Right: Phone + Quote */}
           <div className="flex items-center gap-3">
             <a
-              href="tel:+919900000000"
+              href="tel:+919994813672"
               className="text-sky-600 text-[13px] font-semibold tracking-wide"
             >
-              +91 99xxxxxxxx
+              +91 9994813672
             </a>
             {/* Optional Quote Button */}
             {/* <a
