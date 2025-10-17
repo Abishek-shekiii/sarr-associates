@@ -68,7 +68,7 @@ export default function Contact() {
           setForm({
             name: "",
             email: "",
-            sertvice: preselectedService || "General Inquiryx ",
+            sertvice: preselectedService || "General Inquiry",
             mobile: "",
             message: "",
           });
