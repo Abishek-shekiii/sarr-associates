@@ -97,16 +97,31 @@ export default function App() {
         </div>
 
         {/* Footer */}
-        <footer className="bg-gray-900 text-white mt-16">
+        <footer className="bg-gray-900 text-gray-300 mt-16 border-t border-gray-800">
           <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center text-sm gap-4 text-center md:text-left">
-            <div>© {new Date().getFullYear()} SARR Associates — Tirupur & Chennai</div>
-            <div className="flex gap-4">
-              <a href="#">Privacy</a>
-              <a href="#">Terms</a>
-              <a href="#">LinkedIn</a>
+            
+            {/* Left Text */}
+            <div>
+              © {new Date().getFullYear()} 
+              <span className="font-semibold text-white"> SARR Associates</span> — Tirupur & Chennai
+            </div>
+
+            {/* Right Links */}
+            <div className="flex gap-5">
+              <a href="#" className="hover:text-white transition">Privacy</a>
+              <a href="#" className="hover:text-white transition">Terms</a>
+              <a
+                href="https://www.linkedin.com/in/sarr-associates-435617249"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-sky-400 transition"
+              >
+                LinkedIn
+              </a>
             </div>
           </div>
         </footer>
+
 
         {/* Mobile Top Bar */}
         <div

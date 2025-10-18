@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import emailjs from "emailjs-com";
 import { motion, AnimatePresence } from "framer-motion";
-import { Linkedin, Instagram } from "lucide-react"; // add this to your imports
+import { Linkedin, Instagram, Facebook } from "lucide-react"; // add this to your imports
 
 
 export default function Contact() {
@@ -130,7 +130,7 @@ export default function Contact() {
             <div>
               <h3 className="font-semibold text-sky-700">📍 Address</h3>
               <p>No. 37/14, Ganga Service Station Complex,</p>
-              <p>Avinashi - Trippur Rd, Kumar Nagar,</p>
+              <p>Avinashi Rd, Kumar Nagar,</p>
               <p>Tiruppur,</p>
               <p>Tamil Nadu</p>
               <p>641-603</p>
@@ -144,6 +144,7 @@ export default function Contact() {
               <p>ram@sarrgroup.in</p>
             </div>
             <div className="flex justify-center gap-8 pt-6">
+              {/* LinkedIn */}
               <a
                 href="https://www.linkedin.com/in/sarr-associates-435617249"
                 target="_blank"
@@ -152,13 +153,23 @@ export default function Contact() {
               >
                 <Linkedin className="w-6 h-6" />
               </a>
+              {/* Instagram */}
               <a
-                href="https://www.instagram.com/kris_hnan83?igsh=eWQwN3BobHN4Mmli"
+                href="https://www.instagram.com/sarr2_025/#"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-4 rounded-full bg-gradient-to-tr from-pink-500 to-yellow-400 text-white hover:opacity-90 transition flex items-center justify-center shadow-lg"
               >
                 <Instagram className="w-6 h-6" />
+              </a>
+              {/* Facebook */}
+              <a
+                href="https://www.facebook.com/ramakrishnan4366"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-4 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition flex items-center justify-center shadow-lg"
+              >
+                <Facebook className="w-6 h-6" />
               </a>
             </div>
           </div>
@@ -223,8 +234,9 @@ export default function Contact() {
                 <option value="">Select Service</option>
 
                 {[
+                  "SEDEX (SMETA) Audit Support",
                   "5S Implementation (Workplace Excellence)",
-                  "BSCI & WRAP Support",
+                  "amfori BSCI & WRAP Support",
                   "CTPAT (Customs Trade Partnership Against Terrorism)",
                   "ESI / PF / Factories Act",
                   "FEM (Facility Environmental Module)",
@@ -301,7 +313,6 @@ export default function Contact() {
             </div>
           </form>
 
-          {/* Modern Success/Failure Popup */}
           {/* Modern Success/Failure Popup */}
           <AnimatePresence>
             {status && (

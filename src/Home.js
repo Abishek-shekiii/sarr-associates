@@ -1,14 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { CheckCircle, ShieldCheck, Briefcase, Globe, Lightbulb, Target } from "lucide-react";
+import { CheckCircle, ShieldCheck, Briefcase, Globe, Lightbulb, Target, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 
-
+// home functions
 export default function Home() {
+  const [currentFounderIndex, setCurrentFounderIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
   const [news, setNews] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const navigate = useNavigate();
+
+  // About images for auto scroll
+  const founderImages = [
+  "/images/about_1.jpg",
+  "/images/home_about.jpg",
+  "/images/about_2.jpg",
+  "/images/about_3.jpg",
+  "/images/about_4.jpg",
+  "/images/about_5.jpg",
+  "/images/about_6.jpg",
+  "/images/about_7.jpg",
+  ];
+
+  useEffect(() => {
+    if (paused) return; // pause rotation on hover or touch
+    const interval = setInterval(() => {
+      setCurrentFounderIndex((prev) => (prev + 1) % founderImages.length);
+    }, 6000); // every 6 seconds (smooth timing)
+    return () => clearInterval(interval);
+  }, [paused]);
 
   useEffect(() => {
     const fallbackNews = [
@@ -58,6 +80,11 @@ export default function Home() {
 
   const services = [
     {
+      name: "SEDEX (SMETA) Audit Support",
+      desc: "Prepare your factory for SEDEX (SMETA) audits — ensuring compliance with ethical trade and global buyer standards.",
+      image: "/images/sedex_service.jpg",
+    },
+    {
       name: "Social Compliance Audit",
       desc: "Independent audits to identify gaps, reduce risks, and build buyer confidence.",
       image:
@@ -70,7 +97,7 @@ export default function Home() {
         "/images/SA_8000_home.jpg",
     },
     {
-      name: "BSCI & WRAP Support",
+      name: "amfori BSCI & WRAP Support",
       desc: "Helping businesses align with international buyer codes of conduct.",
       image:
         "/images/BSCI_home.jpg",
@@ -86,12 +113,6 @@ export default function Home() {
       desc: "Policies, payroll, and people management aligned to compliance and growth.",
       image:
         "/images/hr_home.jpg",
-    },
-    {
-      name: "ESI / PF / Factories Act",
-      desc: "Complete statutory compliance management with zero penalties.",
-      image:
-        "/images/pf_home.jpg",
     },
   ];
 
@@ -193,32 +214,30 @@ export default function Home() {
         </div>
       </section>
 
-
-
-      {/* About */}
+      {/* About Section with Auto-Transition Founder Photos */}
       <section
         id="about"
-        className="bg-gradient-to-br from-sky-50 to-emerald-50 py-20 px-6"
+        className="bg-gradient-to-br from-sky-50 to-emerald-50 py-20 px-6 overflow-hidden"
       >
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
+          {/* Left: Static About Text */}
           <motion.div
             className="space-y-6 text-justify"
             initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
           >
-            <h2 className="text-4xl font-bold text-sky-800">Who We Are?</h2>
+            <h2 className="text-4xl font-bold text-sky-800">Who We Are</h2>
 
             <p className="text-gray-700 text-lg leading-relaxed">
-              At <span className="font-semibold">SARR Associates</span>, we believe audits are not a fear —
-              they are the foundation of <span className="font-semibold">trust, integrity, and sustainable growth.</span> 
+              At <span className="font-semibold">SARR Associates</span>, we believe audits are not a fear — 
+              they are the foundation of <span className="font-semibold">trust, integrity, and sustainable growth. </span> 
               Our approach transforms compliance into a meaningful business strategy that ensures resilience,
               transparency, and long-term success.
             </p>
 
             <p className="text-gray-700 text-lg leading-relaxed">
-              With over <strong>18 years</strong> of proven experience, we have partnered with 
+              With over <strong>18+ years</strong> of proven experience, we have partnered with 
               <strong> 200+ organizations</strong> across industries such as apparel, textiles, cigarette manufacturing,
               jute, mango pulp processing, footwear, engineering, logistics, IT, and general manufacturing.  
               Our specialized consulting bridges the gap between <span className="font-semibold">compliance and competitiveness</span>.
@@ -235,22 +254,36 @@ export default function Home() {
               we prepare you for <strong>global recognition and long-term excellence.</strong>
             </p>
           </motion.div>
-
-          {/* Right Image */}
+       
+          {/* Right: Rotating Founder Photos */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.7 }}
+            className="relative flex justify-center items-center w-full"
+            initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="flex justify-center"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onTouchStart={() => setPaused(true)}
+            onTouchEnd={() => setPaused(false)}
           >
-            <img
-              src="/images/home_about.jpg"
-              alt="About SARR Associates"
-              className="rounded-2xl shadow-xl max-w-full md:max-w-[90%]"
-            />
+            <div className="relative w-full flex justify-center">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentFounderIndex}
+                  src={founderImages[currentFounderIndex]}
+                  alt="Founder of SARR Associates"
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.05 }}
+                  transition={{ duration: 1.2, ease: "easeInOut" }}
+                  className="rounded-2xl shadow-xl w-full max-w-[400px] md:max-w-[90%] object-cover"
+                />
+              </AnimatePresence>
+            </div>
           </motion.div>
         </div>
-      </section>
+</section>
+
 
       {/* Our Expertise Section */}
       <section className="bg-white py-20 px-6">
@@ -269,7 +302,7 @@ export default function Home() {
               {
                 icon: <CheckCircle className="w-8 h-8 text-emerald-600" />,
                 title: "Audit & Certification Readiness",
-                desc: "Preparation and guidance for global standards like ISO, SA 8000, BSCI, WRAP, GOTS, GRS, and SEDEX.",
+                desc: "Preparation and guidance for global standards like ISO, SA 8000, amfori BSCI, WRAP, GOTS, GRS, and SEDEX.",
               },
               {
                 icon: <Briefcase className="w-8 h-8 text-sky-600" />,
@@ -437,6 +470,60 @@ export default function Home() {
                 </button>
               </div>
             )}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 🎥 SARR Associates Video Section */}
+      <section className="bg-gradient-to-br from-sky-50 to-emerald-50 py-20 px-6">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+          {/* Left Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+            className="space-y-6"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-sky-800">
+              Inspiring Future Leaders in Compliance & Auditing
+            </h2>
+
+            <p className="text-gray-700 text-lg leading-relaxed">
+              At <span className="font-semibold">Dr. N.G.P. Arts and Science College</span>, our founder and 
+              lead consultant shared valuable industry insights during a guest lecture on 
+              <span className="font-semibold"> “Quality Compliances”</span> to the students practising under
+              <span className="font-semibold"> Department of COMMERCE</span>
+            </p>
+
+            <p className="text-gray-700 text-lg leading-relaxed">
+              The session focused on bridging the gap between academic knowledge and real-world practices — helping students 
+              understand how modern businesses maintain <span className="font-semibold">social accountability, sustainability, and Quality compliance</span> 
+              in an evolving global environment.
+            </p>
+
+            <p className="text-gray-700 text-lg leading-relaxed">
+              Through interactive discussions and practical case studies, <span className="font-semibold">SARR Associates</span> continues 
+              to inspire young professionals to see compliance not as a checkbox — but as a culture of trust and integrity.
+            </p>
+          </motion.div>
+
+          {/* Right Video */}
+          <motion.div
+            initial={{ opacity: 0, x: 80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+            className="rounded-2xl overflow-hidden shadow-2xl mx-auto w-full max-w-md aspect-[9/16] md:max-w-[400px]"
+          >
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/HpM1aL1bC1Y"
+              title="Guest Lecture by SARR Associates at Dr. N.G.P Arts & Science College"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
           </motion.div>
         </div>
       </section>

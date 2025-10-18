@@ -29,6 +29,25 @@ import { useLocation } from "react-router-dom";
 // Service data with icons & creative sections
 const SERVICES = [
   {
+    id: 17,
+    title: "SEDEX (SMETA) Audit Support",
+    summary: "Empowering factories to meet ethical trade and buyer compliance standards.",
+    icon: <ClipboardCheck className="w-10 h-10 text-blue-500" />,
+    image: "/images/sedex_service.jpg",
+    overview:
+      "The SEDEX Members Ethical Trade Audit (SMETA) is one of the most widely used social auditing methodologies globally. It assesses labor, health & safety, environment, and business ethics within your organization.",
+    value:
+      "Undergoing a SEDEX audit enhances transparency and helps businesses build trust with global buyers committed to ethical sourcing and sustainable practices.",
+    audience:
+      "Factories, exporters, and suppliers aiming to demonstrate compliance with international ethical trade and social accountability requirements.",
+    benefits: [
+      "Gap analysis and audit preparation support",
+      "Documentation and evidence alignment with SMETA pillars",
+      "On-site mock audits and corrective action planning",
+      "Coordination with SEDEX-approved auditors",
+    ],
+  },
+  {
     id: 1,
     title: "Social Compliance Audit",
     summary: "End-to-end audits to meet buyer and legal compliance needs.",
@@ -87,12 +106,12 @@ const SERVICES = [
   },
   {
     id: 4,
-    title: "BSCI & WRAP Support",
+    title: "amfori BSCI & WRAP Support",
     summary: "Prepare your factory for international buyer audits.",
     icon: <Scale className="w-10 h-10 text-pink-500" />,
     image: "/images/BSCI_home.jpg",
     overview:
-      "BSCI and WRAP ensure responsible supply chains with fair labor and ethical manufacturing.",
+      "amfori BSCI and WRAP ensure responsible supply chains with fair labor and ethical manufacturing.",
     value:
       "Most European and US buyers demand these certifications before partnerships are confirmed.",
     audience:
