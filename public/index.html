@@ -3,54 +3,83 @@
   <head>
     <meta charset="utf-8" />
     <!-- ✅ Favicon setup for SARR Associates -->
-    <link rel="icon" type="image/png" sizes="96x96" href="%PUBLIC_URL%/images/favicon/favicon-96x96.png" />
-    <link rel="icon" type="image/svg+xml" href="%PUBLIC_URL%/images/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/images/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/images/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon/favicon-96x96.png" />
+    <link rel="icon" type="image/svg+xml" href="/images/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/images/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="SARR Associates" />
-    <link rel="manifest" href="%PUBLIC_URL%/images/favicon/site.webmanifest" />
-    <!-- Optional brand consistency -->
-    <meta name="theme-color" content="#0ea5e9" />
-    <meta name="msapplication-TileColor" content="#0ea5e9" />
-    <meta name="msapplication-TileImage" content="%PUBLIC_URL%/images/sarr_favicon.png" />
+    <meta name="apple-mobile-web-app-title" content="SARR Associates" />
+    <link rel="manifest" href="/images/favicon/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0ea5e9" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta
-      name="description"
-      content="SARR Associates: Social compliance audits, SA8000, ISO, BSCI, WRAP, GOTS/GRS, HR & statutory compliance (ESI/PF) for apparel exporters in Tirupur & Chennai."
-    />
+    <meta name="msapplication-TileColor" content="#0ea5e9" />
+    <meta name="msapplication-TileImage" content="/images/sarr_favicon.png" />
 
-    <!-- Open Graph -->
+
+    <!-- Primary SEO -->
+    <title>SARR Associates — HR Consultancy, Social Compliance & ISO Certification</title>
+    <meta name="description" content="SARR Associates: HR consultancy, social compliance audits (SA8000/amfori BSCI/WRAP/SEDEX), ISO certification support, and training. Offices in Tirupur & Chennai." />
+    <meta name="keywords" content="SARR Associates, HR consultancy, social compliance, SA8000, amfori BSCI, WRAP, ISO certification, GOTS, GRS, HR compliance, Tirupur, Chennai" />
+    <meta name="author" content="SARR Associates" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Language alternate (useful if you add Tamil pages later) -->
+    <link rel="alternate" href="https://sarrassociates.in/" hreflang="en" />
+
+    <!-- Open Graph (use absolute URLs in production for og:image) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="SARR Associates" />
-    <meta
-      property="og:title"
-      content="Social Compliance & Certifications | SARR Associates"
-    />
-    <meta
-      property="og:description"
-      content="Audit-ready consulting for SA8000, ISO, BSCI/WRAP, GOTS/GRS, HR compliance. Offices in Tirupur & Chennai."
-    />
-    <meta property="og:url" content="https://www.sarrassociates.in/" />
-    <meta property="og:image" content="%PUBLIC_URL%/og-image.jpg" />
+    <meta property="og:title" content="Social Compliance & Certifications | SARR Associates" />
+    <meta property="og:description" content="Audit-ready consulting for SA8000, ISO, amfori BSCI/WRAP, GOTS/GRS, HR compliance. Offices in Tirupur & Chennai." />
+    <meta property="og:url" content="https://sarrassociates.in/" />
+    <!-- Replace with absolute URL after deploy, e.g. https://sarrassociates.in/images/og-image.jpg -->
+    <meta property="og:image" content="https://sarrassociates.in/images/home_about.jpg" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Social Compliance & Certifications | SARR Associates"
-    />
-    <meta
-      name="twitter:description"
-      content="Audit-ready consulting for SA8000, ISO, BSCI/WRAP, GOTS/GRS, HR compliance."
-    />
-    <meta name="twitter:image" content="%PUBLIC_URL%/og-image.jpg" />
+    <meta name="twitter:title" content="Social Compliance & Certifications | SARR Associates" />
+    <meta name="twitter:description" content="Audit-ready consulting for SA8000, ISO, amfori BSCI/WRAP, GOTS/GRS, HR compliance." />
+    <meta name="twitter:image" content="https://sarrassociates.in/images/home_about.jpg" />
 
-    <link rel="canonical" href="https://www.sarrassociates.in/" />
+    <link rel="canonical" href="https://sarrassociates.in/" />
 
-    <title>SARR Associates</title>
+    <!-- Structured data: Organization + LocalBusiness (edit phone/address/social links) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "name": "SARR Associates",
+          "url": "https://sarrassociates.in/",
+          "logo": "https://sarrassociates.in/images/favicon/favicon-96x96.png",
+          "sameAs": [
+            "https://www.linkedin.com/in/sarr-associates-435617249",
+          ],
+          "description": "SARR Associates offers HR consultancy, social compliance audits (SA8000/amfori BSCI/WRAP/SEDEX), ISO certification support, and corporate training."
+        },
+        {
+          "@type": "LocalBusiness",
+          "name": "SARR Associates (Tirupur Office)",
+          "image": "https://sarrassociates.in/images/home_about.jpg",
+          "telephone": "+91-9994813672",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "No. 37/14, Ganga Service Station Complex, Avinashi Rd, Kumar Nagar,",
+            "addressLocality": "Tirupur",
+            "addressRegion": "Tamil Nadu",
+            "postalCode": "641603",
+            "addressCountry": "IN"
+          },
+          "url": "https://sarrassociates.in/",
+          "priceRange": "Contact for details",
+          "openingHours": "Mo-Fr 09:00-18:00"
+        }
+      ]
+    }
+    </script>
+
+    <!-- End head -->
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

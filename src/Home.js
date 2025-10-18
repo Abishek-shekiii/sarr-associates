@@ -1,11 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { CheckCircle, ShieldCheck, Briefcase, Globe } from "lucide-react";
+import { CheckCircle, ShieldCheck, Briefcase, Globe, Lightbulb, Target, ChevronLeft, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 
+// home functions
 export default function Home() {
+  const [currentFounderIndex, setCurrentFounderIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
   const [news, setNews] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const navigate = useNavigate();
+
+  // About images for auto scroll
+  const founderImages = [
+  "/images/about_1.jpg",
+  "/images/home_about.jpg",
+  "/images/about_2.jpg",
+  "/images/about_3.jpg",
+  "/images/about_4.jpg",
+  "/images/about_5.jpg",
+  "/images/about_6.jpg",
+  "/images/about_7.jpg",
+  ];
+
+  useEffect(() => {
+    if (paused) return; // pause rotation on hover or touch
+    const interval = setInterval(() => {
+      setCurrentFounderIndex((prev) => (prev + 1) % founderImages.length);
+    }, 6000); // every 6 seconds (smooth timing)
+    return () => clearInterval(interval);
+  }, [paused]);
 
   useEffect(() => {
     const fallbackNews = [
@@ -33,33 +58,7 @@ export default function Home() {
     ];
 
     const cachedNews = sessionStorage.getItem("latestNews");
-    if (cachedNews) {
-      setNews(JSON.parse(cachedNews));
-      return;
-    }
-
-    fetch(
-      `https://newsapi.org/v2/everything?q="India" AND ("audit" OR "ISO certification" OR "ISO audit" OR "compliance audit")&apiKey=b80953c40aef4cff809df22563ce5800&pageSize=6&language=en&sortBy=publishedAt`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.articles && data.articles.length > 0) {
-          const filtered = data.articles.filter(
-            (a) =>
-              (a.title &&
-                (a.title.toLowerCase().includes("audit") ||
-                  a.title.toLowerCase().includes("iso"))) ||
-              (a.description &&
-                (a.description.toLowerCase().includes("audit") ||
-                  a.description.toLowerCase().includes("iso")))
-          );
-          setNews(filtered.slice(0, 6).length > 0 ? filtered.slice(0, 6) : fallbackNews);
-          sessionStorage.setItem("latestNews", JSON.stringify(topNews));
-        } else {
-          setNews(fallbackNews);
-        }
-      })
-      .catch(() => setNews(fallbackNews));
+    setNews(fallbackNews);
   }, []);
 
   useEffect(() => {
@@ -81,6 +80,11 @@ export default function Home() {
 
   const services = [
     {
+      name: "SEDEX (SMETA) Audit Support",
+      desc: "Prepare your factory for SEDEX (SMETA) audits — ensuring compliance with ethical trade and global buyer standards.",
+      image: "/images/sedex_service.jpg",
+    },
+    {
       name: "Social Compliance Audit",
       desc: "Independent audits to identify gaps, reduce risks, and build buyer confidence.",
       image:
@@ -93,7 +97,7 @@ export default function Home() {
         "/images/SA_8000_home.jpg",
     },
     {
-      name: "BSCI & WRAP Support",
+      name: "amfori BSCI & WRAP Support",
       desc: "Helping businesses align with international buyer codes of conduct.",
       image:
         "/images/BSCI_home.jpg",
@@ -110,12 +114,6 @@ export default function Home() {
       image:
         "/images/hr_home.jpg",
     },
-    {
-      name: "ESI / PF / Factories Act",
-      desc: "Complete statutory compliance management with zero penalties.",
-      image:
-        "/images/pf_home.jpg",
-    },
   ];
 
   return (
@@ -126,7 +124,7 @@ export default function Home() {
         className="relative bg-cover bg-center h-[650px] flex items-center"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1523958203904-cdcb402031fd?auto=format&fit=crop&w=1600&q=80')",
+            "url('/images/home_banner.jpg')",
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-sky-900/80 to-emerald-800/70"></div>
@@ -155,8 +153,10 @@ export default function Home() {
       {/* Services */}
       <section id="services" className="max-w-7xl mx-auto px-6 py-20">
         <h2 className="text-3xl font-bold text-center mb-12 text-sky-800">
-          Our Core Services
+          🌍 Compliance & Growth Solutions
         </h2>
+
+        {/* Service Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
           {services.map((s, i) => (
             <motion.div
@@ -188,72 +188,167 @@ export default function Home() {
             </motion.div>
           ))}
         </div>
+
+        {/* View All Services Button */}
+        <div className="flex justify-center mt-12">
+          <motion.a
+            href="/services"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+            animate={{ 
+              boxShadow: [
+                "0 0 0px rgba(16, 185, 129, 0)",
+                "0 0 20px rgba(16, 185, 129, 0.4)",
+                "0 0 0px rgba(16, 185, 129, 0)"
+              ]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
+            className="inline-block px-6 py-3 bg-gradient-to-r from-sky-600 to-emerald-400 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition"
+          >
+            View All Services →
+          </motion.a>
+        </div>
       </section>
 
-
-      {/* About */}
+      {/* About Section with Auto-Transition Founder Photos */}
       <section
         id="about"
-        className="bg-gradient-to-br from-sky-50 to-emerald-50 py-20 px-6"
+        className="bg-gradient-to-br from-sky-50 to-emerald-50 py-20 px-6 overflow-hidden"
       >
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          {/* Left: Static About Text */}
           <motion.div
-            className="space-y-6"
+            className="space-y-6 text-justify"
             initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
           >
             <h2 className="text-4xl font-bold text-sky-800">Who We Are</h2>
-            <p className="text-gray-700 text-lg leading-relaxed">
-              At <span className="font-semibold">SARR Associates</span>, we
-              believe audits should not be a fear, but a foundation for trust
-              and growth. With over <strong>15 years</strong> of expertise, our
-              team has supported <strong>150+ businesses</strong> across
-              industries like apparel, textiles, engineering, logistics, IT, and
-              manufacturing.
-            </p>
-            <p className="text-gray-700 text-lg leading-relaxed">
-              We specialize in{" "}
-              <span className="font-semibold">
-                audit preparation, certifications, HR consulting, and statutory
-                compliance
-              </span>
-              . Our mission is to simplify complex regulations and convert
-              compliance into a competitive advantage.
-            </p>
-            <ul className="space-y-4 text-gray-700">
-              <li className="flex items-center gap-3">
-                <CheckCircle className="text-emerald-600 w-5 h-5" />
-                Audit & certification readiness
-              </li>
-              <li className="flex items-center gap-3">
-                <Briefcase className="text-sky-600 w-5 h-5" />
-                HR systems aligned with labour laws
-              </li>
-              <li className="flex items-center gap-3">
-                <ShieldCheck className="text-emerald-600 w-5 h-5" />
-                Training & capacity building
-              </li>
-              <li className="flex items-center gap-3">
-                <Globe className="text-sky-600 w-5 h-5" />
-                Sustainability certifications (ISO, SA 8000, WRAP, etc.)
-              </li>
-            </ul>
-          </motion.div>
 
+            <p className="text-gray-700 text-lg leading-relaxed">
+              At <span className="font-semibold">SARR Associates</span>, we believe audits are not a fear — 
+              they are the foundation of <span className="font-semibold">trust, integrity, and sustainable growth. </span> 
+              Our approach transforms compliance into a meaningful business strategy that ensures resilience,
+              transparency, and long-term success.
+            </p>
+
+            <p className="text-gray-700 text-lg leading-relaxed">
+              With over <strong>18+ years</strong> of proven experience, we have partnered with 
+              <strong> 200+ organizations</strong> across industries such as apparel, textiles, cigarette manufacturing,
+              jute, mango pulp processing, footwear, engineering, logistics, IT, and general manufacturing.  
+              Our specialized consulting bridges the gap between <span className="font-semibold">compliance and competitiveness</span>.
+            </p>
+
+            <p className="text-gray-700 text-lg leading-relaxed">
+              We specialize in <span className="font-semibold">Audit Preparation, HR Consulting, Statutory Compliance, 
+              and Certification Support</span>, helping organizations simplify regulations and convert compliance into
+              a catalyst for growth.
+            </p>
+
+            <p className="text-gray-700 text-lg leading-relaxed">
+              ✨ At <span className="font-semibold">SARR Associates</span>, we don’t just prepare you for audits — 
+              we prepare you for <strong>global recognition and long-term excellence.</strong>
+            </p>
+          </motion.div>
+       
+          {/* Right: Rotating Founder Photos */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.7 }}
+            className="relative flex justify-center items-center w-full"
+            initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onTouchStart={() => setPaused(true)}
+            onTouchEnd={() => setPaused(false)}
           >
-            <img
-              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80"
-              alt="About SARR Associates"
-              className="rounded-2xl shadow-xl"
-            />
+            <div className="relative w-full flex justify-center">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentFounderIndex}
+                  src={founderImages[currentFounderIndex]}
+                  alt="Founder of SARR Associates"
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.05 }}
+                  transition={{ duration: 1.2, ease: "easeInOut" }}
+                  className="rounded-2xl shadow-xl w-full max-w-[400px] md:max-w-[90%] object-cover"
+                />
+              </AnimatePresence>
+            </div>
           </motion.div>
         </div>
-      </section>
+</section>
+
+
+      {/* Our Expertise Section */}
+      <section className="bg-white py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-3xl font-bold text-center text-sky-800 mb-12"
+          >
+            🏛️ Centers of Excellence
+          </motion.h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            {[
+              {
+                icon: <CheckCircle className="w-8 h-8 text-emerald-600" />,
+                title: "Audit & Certification Readiness",
+                desc: "Preparation and guidance for global standards like ISO, SA 8000, amfori BSCI, WRAP, GOTS, GRS, and SEDEX.",
+              },
+              {
+                icon: <Briefcase className="w-8 h-8 text-sky-600" />,
+                title: "HR Systems & Labour Law Compliance",
+                desc: "Developing structured HR systems aligned with statutory norms and corporate ethics.",
+              },
+              {
+                icon: <ShieldCheck className="w-8 h-8 text-emerald-600" />,
+                title: "Training & Capacity Building",
+                desc: "Empowering your workforce through compliance-based programs and skill enhancement workshops.",
+              },
+              {
+                icon: <Globe className="w-8 h-8 text-sky-600" />,
+                title: "Sustainability & Social Compliance",
+                desc: "End-to-end consulting for achieving ethical and sustainable operations across supply chains.",
+              },
+              {
+                icon: <Lightbulb className="w-8 h-8 text-yellow-500" />,
+                title: "Awareness & Lecture Programs",
+                desc: "Professional sessions on HR, labour laws, and compliance management for all organizational levels.",
+              },
+              {
+                icon: <Target className="w-8 h-8 text-red-500" />,
+                title: "Gap Analysis & Risk Assessment",
+                desc: "Identifying compliance risks, performing detailed evaluations, and ensuring audit readiness.",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="bg-gradient-to-br from-sky-50 to-emerald-50 p-6 rounded-2xl shadow hover:shadow-lg transition-all duration-300 border border-gray-100"
+              >
+                <div className="flex items-center gap-4 mb-3">
+                  {item.icon}
+                  <h3 className="text-lg font-semibold text-sky-800">{item.title}</h3>
+                </div>
+                <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+</section>
+
+
 
       {/* Testimonials */}
       <section className="bg-gray-50 py-20 px-6">
@@ -345,14 +440,16 @@ export default function Home() {
                       "Click below to read full article."}
                   </p>
                 </div>
-                <a
-                  href={news[currentIndex].url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-emerald-600 text-sm font-medium mt-4 inline-block"
+                <button
+                  onClick={() =>
+                    navigate("/services", {
+                      state: { openService: news[currentIndex].title },
+                    })
+                  }
+                  className="text-emerald-600 text-sm font-medium mt-4 inline-block hover:underline"
                 >
                   Read more →
-                </a>
+                </button>
               </motion.div>
             )}
 
@@ -373,6 +470,60 @@ export default function Home() {
                 </button>
               </div>
             )}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 🎥 SARR Associates Video Section */}
+      <section className="bg-gradient-to-br from-sky-50 to-emerald-50 py-20 px-6">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+          {/* Left Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+            className="space-y-6"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-sky-800">
+              Inspiring Future Leaders in Compliance & Auditing
+            </h2>
+
+            <p className="text-gray-700 text-lg leading-relaxed">
+              At <span className="font-semibold">Dr. N.G.P. Arts and Science College</span>, our founder and 
+              lead consultant shared valuable industry insights during a guest lecture on 
+              <span className="font-semibold"> “Quality Compliances”</span> to the students practising under
+              <span className="font-semibold"> Department of COMMERCE</span>
+            </p>
+
+            <p className="text-gray-700 text-lg leading-relaxed">
+              The session focused on bridging the gap between academic knowledge and real-world practices — helping students 
+              understand how modern businesses maintain <span className="font-semibold">social accountability, sustainability, and Quality compliance</span> 
+              in an evolving global environment.
+            </p>
+
+            <p className="text-gray-700 text-lg leading-relaxed">
+              Through interactive discussions and practical case studies, <span className="font-semibold">SARR Associates</span> continues 
+              to inspire young professionals to see compliance not as a checkbox — but as a culture of trust and integrity.
+            </p>
+          </motion.div>
+
+          {/* Right Video */}
+          <motion.div
+            initial={{ opacity: 0, x: 80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+            className="rounded-2xl overflow-hidden shadow-2xl mx-auto w-full max-w-md aspect-[9/16] md:max-w-[400px]"
+          >
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/HpM1aL1bC1Y"
+              title="Guest Lecture by SARR Associates at Dr. N.G.P Arts & Science College"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
           </motion.div>
         </div>
       </section>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import emailjs from "emailjs-com";
 import { motion, AnimatePresence } from "framer-motion";
-import { Linkedin, Instagram } from "lucide-react"; // add this to your imports
+import { Linkedin, Instagram, Facebook } from "lucide-react"; // add this to your imports
 
 
 export default function Contact() {
@@ -19,6 +19,10 @@ export default function Contact() {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState(null);
   
+  // Scroll to top on page load
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   // keep service preselected
   useEffect(() => {
@@ -57,14 +61,14 @@ export default function Contact() {
     if (Object.keys(validation).length > 0) return;
 
     emailjs
-      .send("service_hbs15hc", "template_uu0n9sf", form, "azlnSNt1F28oLbbsA")
+      .send("service_jz7wlb9", "template_cke7e4n", form, "t_eUw1lbseJ5cugfx")
       .then(
         () => {
           setStatus("success");
           setForm({
             name: "",
             email: "",
-            sertvice: preselectedService || "",
+            sertvice: preselectedService || "General Inquiry",
             mobile: "",
             message: "",
           });
@@ -75,27 +79,34 @@ export default function Contact() {
 
   function sendWhatsApp(e) {
     e.preventDefault();
-  
+
     let newErrors = {};
     if (!form.name.trim()) newErrors.name = "Name is required";
-    if (!form.mobile.trim()) newErrors.mobile = "Enter a valid 10-digit mobile number.";
+    if (!form.mobile.trim() || form.mobile.length < 10)
+      newErrors.mobile = "Enter a valid 10-digit mobile number.";
     setErrors(newErrors);
-  
+
     if (Object.keys(newErrors).length === 0) {
-      const whatsappMessage = `Hello, I am ${form.name}.
-  Email: ${form.email}
-  Mobile: ${form.mobile}
-  Service: ${form.sertvice}
-  Message: ${form.message || "N/A"}`;
-  
-      const phoneNumber = "919080699265"; // Replace with your WhatsApp business number
-      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-        whatsappMessage
-      )}`;
+      const phoneNumber = "919994813672"; // Your WhatsApp Business Number
+      const submissionTime = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+
+      const whatsappMessage = `*New Service Inquiry via SARR Associates Website*
+
+  👤 *Name:* ${form.name}
+  📧 *Email:* ${form.email || "N/A"}
+  📞 *Mobile:* ${form.mobile}
+  🧾 *Service Interested:* ${form.sertvice || preselectedService || "General Inquiry"}
+  💬 *Message:* ${form.message || "N/A"}
+
+  -----------------------
+  ✨ _"Audits Made Easy, Growth Made Possible."_ 
+  🌐 www.sarrassociates.in
+  `;
+
+      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
       window.open(url, "_blank");
     }
   }
-  
 
   return (
     <section className="relative bg-gradient-to-br from-sky-50 to-emerald-50 py-16 px-6">
@@ -118,32 +129,47 @@ export default function Contact() {
           <div className="space-y-4 text-gray-600">
             <div>
               <h3 className="font-semibold text-sky-700">📍 Address</h3>
-              <p>Tirupur & Chennai Offices</p>
+              <p>No. 37/14, Ganga Service Station Complex,</p>
+              <p>Avinashi Rd, Kumar Nagar,</p>
+              <p>Tiruppur,</p>
+              <p>Tamil Nadu</p>
+              <p>641-603</p>
             </div>
             <div>
               <h3 className="font-semibold text-sky-700">📞 Phone</h3>
-              <p>+91 99xxxx xxxx</p>
+              <p>+91 9994813672</p>
             </div>
             <div>
               <h3 className="font-semibold text-sky-700">✉️ Email</h3>
-              <p>hello@sarrassociates.example</p>
+              <p>ram@sarrgroup.in</p>
             </div>
             <div className="flex justify-center gap-8 pt-6">
+              {/* LinkedIn */}
               <a
-                href="https://linkedin.com/company/your-company"
+                href="https://www.linkedin.com/in/sarr-associates-435617249"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-4 rounded-full bg-sky-600 text-white hover:bg-sky-700 transition flex items-center justify-center shadow-lg"
               >
                 <Linkedin className="w-6 h-6" />
               </a>
+              {/* Instagram */}
               <a
-                href="https://instagram.com/your-company"
+                href="https://www.instagram.com/sarr2_025/#"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-4 rounded-full bg-gradient-to-tr from-pink-500 to-yellow-400 text-white hover:opacity-90 transition flex items-center justify-center shadow-lg"
               >
                 <Instagram className="w-6 h-6" />
+              </a>
+              {/* Facebook */}
+              <a
+                href="https://www.facebook.com/ramakrishnan4366"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-4 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition flex items-center justify-center shadow-lg"
+              >
+                <Facebook className="w-6 h-6" />
               </a>
             </div>
           </div>
@@ -206,34 +232,34 @@ export default function Contact() {
                 className="w-full border p-3 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none"
               >
                 <option value="">Select Service</option>
-                <option value="BSCI & WRAP Support">BSCI & WRAP Support</option>
-                <option value="CTPAT (Customs Trade Partnership Against Terrorism)">
-                  CTPAT (Customs Trade Partnership Against Terrorism)
-                </option>
-                <option value="ESI / PF / Factories Act">ESI / PF / Factories Act</option>
-                <option value="FEM (Facility Environmental Module)">
-                  FEM (Facility Environmental Module)
-                </option>
-                <option value="FSC (Forest Stewardship Council Certification)">
-                  FSC (Forest Stewardship Council Certification)
-                </option>
-                <option value="HIGG Index (Sustainability Assessment)">
-                  HIGG Index (Sustainability Assessment)
-                </option>
-                <option value="HR Consulting">HR Consulting</option>
-                <option value="ISO Certifications">ISO Certifications</option>
-                <option value="OEKO TEX / GOTS / GRS">OEKO TEX / GOTS / GRS</option>
-                <option value="SA 8000 Certification">SA 8000 Certification</option>
-                <option value="SLCP (Social & Labor Convergence Program)">
-                  SLCP (Social & Labor Convergence Program)
-                </option>
-                <option value="Social Compliance Audit">Social Compliance Audit</option>
-                <option value="Training & Capacity Building">
-                  Training & Capacity Building
-                </option>
+
+                {[
+                  "SEDEX (SMETA) Audit Support",
+                  "5S Implementation (Workplace Excellence)",
+                  "amfori BSCI & WRAP Support",
+                  "CTPAT (Customs Trade Partnership Against Terrorism)",
+                  "ESI / PF / Factories Act",
+                  "FEM (Facility Environmental Module)",
+                  "FSC (Forest Stewardship Council Certification)",
+                  "HIGG Index (Sustainability Assessment)",
+                  "HR Consulting",
+                  "ISO Certifications",
+                  "OCS (Organic Content Standard)",
+                  "OEKO TEX / GOTS / GRS",
+                  "RCS (Recycled Claim Standard)",
+                  "SA 8000 Certification",
+                  "SLCP (Social & Labor Convergence Program)",
+                  "Social Compliance Audit",
+                  "Training & Capacity Building",
+                ]
+                  .sort((a, b) => a.localeCompare(b))
+                  .map((service) => (
+                    <option key={service} value={service}>
+                      {service}
+                    </option>
+                  ))}
               </select>
             </div>
-
 
             {/* Mobile */}
             <div>
@@ -267,11 +293,11 @@ export default function Contact() {
             </div>
 
             {/* Actions */}
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full mt-4">
               <motion.button
                 type="submit"
                 whileHover={{ scale: 1.05 }}
-                className="flex-1 py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-sky-600 to-emerald-400 hover:opacity-90 transition"
+                className="w-full sm:flex-1 py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-sky-600 to-emerald-400 hover:opacity-90 transition"
               >
                 Send Request
               </motion.button>
@@ -280,14 +306,13 @@ export default function Contact() {
                 type="button"
                 whileHover={{ scale: 1.05 }}
                 onClick={sendWhatsApp}
-                className="flex-1 py-3 rounded-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition"
+                className="w-full sm:flex-1 py-3 rounded-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition"
               >
                 Send via WhatsApp
               </motion.button>
             </div>
           </form>
 
-          {/* Modern Success/Failure Popup */}
           {/* Modern Success/Failure Popup */}
           <AnimatePresence>
             {status && (

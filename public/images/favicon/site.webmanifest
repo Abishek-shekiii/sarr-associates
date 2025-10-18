@@ -1,7 +1,7 @@
 {
   "name": "SARR Associates",
   "short_name": "SARR",
-  "description": "SARR Associates — Social Compliance, Certifications & HR Consulting. We help businesses achieve SA8000, ISO, BSCI/WRAP, and statutory compliance across industries.",
+  "description": "SARR Associates — Social Compliance, Certifications & HR Consulting. We help businesses achieve SA8000, ISO, amfori BSCI/WRAP, and statutory compliance across industries.",
   "icons": [
     {
       "src": "android-chrome-192x192.png",
