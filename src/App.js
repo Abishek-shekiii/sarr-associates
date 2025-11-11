@@ -143,7 +143,7 @@ export default function App() {
 
             <div className="flex flex-col leading-tight">
               <span className="text-sm font-bold text-sky-700">SARR Associates</span>
-              <span className="text-[11px] text-gray-500">Compliance • Certifiaction • HR</span>
+              <span className="text-[11px] text-gray-500">Compliance • Certifications • HR</span>
             </div>
           </div>
 

@@ -86,6 +86,25 @@ const SERVICES = [
     ],
   },
   {
+    id: 4,
+    title: "amfori BSCI Support",
+    summary: "Get your factory audit-ready for global buyers following BSCI standards.",
+    icon: <Scale className="w-10 h-10 text-pink-500" />,
+    image: "/images/amfori_bsci.jpg",
+    overview:
+      "amfori BSCI (Business Social Compliance Initiative) helps ensure responsible supply chains by promoting fair labor, ethical business practices, and social sustainability within manufacturing units.",
+    value:
+      "Many European buyers require BSCI compliance before confirming partnerships. Being BSCI-ready strengthens your credibility with international clients.",
+    audience:
+      "Exporters, manufacturers, and suppliers seeking to enter or expand in European and global retail supply chains.",
+    benefits: [
+      "Gap assessment and mock audits",
+      "CAP (Corrective Action Plan) preparation",
+      "Training for social compliance teams",
+      "Support during buyer and third-party audits",
+    ],
+  },
+  {
     id: 3,
     title: "ISO Certifications",
     summary: "Quality, safety & environment standards for global business.",
@@ -105,22 +124,22 @@ const SERVICES = [
     ],
   },
   {
-    id: 4,
-    title: "amfori BSCI & WRAP Support",
-    summary: "Prepare your factory for international buyer audits.",
-    icon: <Scale className="w-10 h-10 text-pink-500" />,
-    image: "/images/BSCI_home.jpg",
+    id: 18,
+    title: "WRAP Certification Support",
+    summary: "Achieve globally recognized WRAP certification for ethical manufacturing.",
+    icon: <Scale className="w-10 h-10 text-orange-500" />,
+    image: "/images/WRAP_home.jpg",
     overview:
-      "amfori BSCI and WRAP ensure responsible supply chains with fair labor and ethical manufacturing.",
+      "WRAP (Worldwide Responsible Accredited Production) certifies that factories operate safely, lawfully, and ethically — a key requirement for US buyers and global fashion brands.",
     value:
-      "Most European and US buyers demand these certifications before partnerships are confirmed.",
+      "WRAP certification demonstrates your commitment to fair labor practices and responsible sourcing — increasing buyer confidence and international opportunities.",
     audience:
-      "Garment exporters and manufacturers aiming to supply global fashion brands.",
+      "Garment and apparel manufacturers aiming to supply leading global brands in the US and other regions.",
     benefits: [
-      "Mock audits & CAP preparation",
-      "Training for compliance teams",
-      "Documentation & buyer requirements",
-      "Handholding during audit",
+      "Documentation review & factory readiness check",
+      "Guidance through WRAP registration and audit process",
+      "On-site support during audit",
+      "Continuous compliance improvement assistance",
     ],
   },
   {
@@ -140,6 +159,44 @@ const SERVICES = [
       "Visual management setup",
       "Audit and continuous improvement tracking",
       "Employee awareness sessions",
+    ],
+  },
+  {
+    id: 19,
+    title: "BCI (Better Cotton Initiative)",
+    summary: "Promoting sustainable cotton farming and responsible sourcing.",
+    icon: <Leaf className="w-10 h-10 text-green-600" />,
+    image: "/images/bci_service.jpg",
+    overview:
+      "The Better Cotton Initiative (BCI) aims to make global cotton production better for the environment, farmers, and the textile supply chain. It focuses on reducing the environmental impact of cotton farming, improving livelihoods, and ensuring sustainable sourcing.",
+    value:
+      "BCI membership and certification demonstrate your commitment to sustainable cotton sourcing — a major factor for global fashion and retail brands.",
+    audience:
+      "Cotton ginners, mills, and manufacturers sourcing or producing cotton-based textiles for international buyers.",
+    benefits: [
+      "Support for BCI membership registration and alignment",
+      "Traceability and sourcing documentation setup",
+      "Supplier and farmer engagement guidance",
+      "Training on BCI principles and continuous improvement practices",
+    ],
+  },
+  {
+    id: 20,
+    title: "GSV (Global Security Verification)",
+    summary: "Ensure secure, compliant, and transparent global supply chains.",
+    icon: <ShieldCheck className="w-10 h-10 text-blue-500" />,
+    image: "/images/gsv_service.jpg",
+    overview:
+      "GSV (Global Security Verification) is an international security standard that helps organizations identify and mitigate risks in their supply chains. It evaluates facility security, cargo handling, and procedural controls to enhance trade safety and global compliance.",
+    value:
+      "Achieving GSV verification enhances credibility with multinational brands and reduces customs-related risks during international trade.",
+    audience:
+      "Manufacturers, logistics providers, and exporters handling global shipments or supplying to security-conscious brands.",
+    benefits: [
+      "Gap assessment and GSV readiness evaluation",
+      "Development of security policies and procedures",
+      "Facility audit preparation and corrective action support",
+      "Coordination with accredited GSV audit bodies",
     ],
   },
   {

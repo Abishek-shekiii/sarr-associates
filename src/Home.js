@@ -2,6 +2,59 @@ import React, { useEffect, useState } from "react";
 import { CheckCircle, ShieldCheck, Briefcase, Globe, Lightbulb, Target, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
+//youtube vide lazy load  fucntion
+function LazyYouTube({ videoId }) {
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  const thumbnail = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+
+  return (
+    <div
+      className="relative rounded-2xl overflow-hidden shadow-2xl cursor-pointer aspect-[9/16] group"
+      onClick={() => setIsLoaded(true)}
+    >
+      {!isLoaded ? (
+        <>
+          <img
+            src={thumbnail}
+            alt="SARR Associates Video Thumbnail"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+          {/* ▶ replaced with YouTube-Shorts style button */}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+            <div className="flex items-center justify-center">
+              <div className="relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16">
+                <div className="absolute inset-0 bg-white rounded-2xl blur-[2px] opacity-90"></div>
+                <div className="relative bg-[#FF0000] rounded-2xl w-full h-full flex items-center justify-center shadow-lg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="white"
+                    viewBox="0 0 24 24"
+                    width="26"
+                    height="26"
+                    className="translate-x-[1px]"
+                  >
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <iframe
+          width="100%"
+          height="100%"
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+          title="SARR Associates Guest Lecture Video"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        ></iframe>
+      )}
+    </div>
+  );
+}
 
 // home functions
 export default function Home() {
@@ -78,43 +131,78 @@ export default function Home() {
     setCurrentIndex((prev) => (prev + 1) % news.length);
   };
 
+  // const services = [
+  //   {
+  //     name: "SEDEX (SMETA) Audit Support",
+  //     desc: "Prepare your factory for SEDEX (SMETA) audits — ensuring compliance with ethical trade and global buyer standards.",
+  //     image: "/images/sedex_service.jpg",
+  //   },
+  //   {
+  //     name: "Social Compliance Audit",
+  //     desc: "Independent audits to identify gaps, reduce risks, and build buyer confidence.",
+  //     image:
+  //       "/images/social_complaince_home.jpg",
+  //   },
+  //   {
+  //     name: "SA 8000 Certification",
+  //     desc: "Globally recognized certification  for ethical and responsible workplaces.",
+  //     image:
+  //       "/images/SA_8000_home.jpg",
+  //   },
+  //   {
+  //     name: "amfori BSCI & WRAP Support",
+  //     desc: "Helping businesses align with international buyer codes of conduct.",
+  //     image:
+  //       "/images/amfori_bsci.jpg",
+  //   },
+  //   {
+  //     name: "ISO Standards",
+  //     desc: "ISO 9001, 14001, 45001 — enhancing quality, safety, and sustainability across industries.",
+  //     image:
+  //       "/images/ISO_home.jpg",
+  //   },
+  //   {
+  //     name: "HR Consulting",
+  //     desc: "Policies, payroll, and people management aligned to compliance and growth.",
+  //     image:
+  //       "/images/hr_home.jpg",
+  //   },
+  // ];
+
+  //updated new
   const services = [
     {
-      name: "SEDEX (SMETA) Audit Support",
-      desc: "Prepare your factory for SEDEX (SMETA) audits — ensuring compliance with ethical trade and global buyer standards.",
-      image: "/images/sedex_service.jpg",
+      name: "Social & Ethical Compliance",
+      desc: "Prepare for SEDEX, amfori BSCI, WRAP, and SA 8000 audits — build a responsible and trusted workplace.",
+      image: "/images/social_complaince_home.jpg",
     },
     {
-      name: "Social Compliance Audit",
-      desc: "Independent audits to identify gaps, reduce risks, and build buyer confidence.",
-      image:
-        "/images/social_complaince_home.jpg",
+      name: "Management System Certifications",
+      desc: "Achieve ISO 9001, ISO 14001, ISO 45001, and IATF certifications that enhance global credibility.",
+      image: "/images/ISO_home.jpg",
     },
     {
-      name: "SA 8000 Certification",
-      desc: "Globally recognized certification  for ethical and responsible workplaces.",
-      image:
-        "/images/SA_8000_home.jpg",
+      name: "Sustainability & Product Standards",
+      desc: "Adopt eco-conscious certifications like GOTS, GRS, OEKO-TEX, OCS, and BCI for sustainable production.",
+      image: "/images/sustainability_home.jpg",
     },
     {
-      name: "amfori BSCI & WRAP Support",
-      desc: "Helping businesses align with international buyer codes of conduct.",
-      image:
-        "/images/BSCI_home.jpg",
+      name: "Security & Supply Chain Audits",
+      desc: "Secure your global operations with CTPAT, GSV, and supplier risk assessments.",
+      image: "/images/security_chain_home.jpg",
     },
     {
-      name: "ISO Standards",
-      desc: "ISO 9001, 14001, 45001 — enhancing quality, safety, and sustainability across industries.",
-      image:
-        "/images/ISO_home.jpg",
+      name: "HR & Statutory Compliance",
+      desc: "From policies to payroll — ensure 100% compliance with HR and labour law frameworks.",
+      image: "/images/hr_home.jpg",
     },
     {
-      name: "HR Consulting",
-      desc: "Policies, payroll, and people management aligned to compliance and growth.",
-      image:
-        "/images/hr_home.jpg",
+      name: "Training & Capacity Building",
+      desc: "Empower employees with compliance workshops, awareness sessions, and internal auditor programs.",
+      image: "/images/training.jpg",
     },
   ];
+
 
   return (
     <div>
@@ -508,22 +596,14 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* Right Video */}
+          {/* Right Video (Lazy-Loaded YouTube) */}
           <motion.div
             initial={{ opacity: 0, x: 80 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
-            className="rounded-2xl overflow-hidden shadow-2xl mx-auto w-full max-w-md aspect-[9/16] md:max-w-[400px]"
+            className="mx-auto w-full max-w-md md:max-w-[400px]"
           >
-            <iframe
-              width="100%"
-              height="100%"
-              src="https://www.youtube.com/embed/HpM1aL1bC1Y"
-              title="Guest Lecture by SARR Associates at Dr. N.G.P Arts & Science College"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            ></iframe>
+            <LazyYouTube videoId="HpM1aL1bC1Y" />
           </motion.div>
         </div>
       </section>
