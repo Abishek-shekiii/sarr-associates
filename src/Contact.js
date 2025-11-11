@@ -1,9 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import emailjs from "emailjs-com";
 import { motion, AnimatePresence } from "framer-motion";
-import { Linkedin, Instagram, Facebook } from "lucide-react"; // add this to your imports
+import { MapPin, Phone, Mail, Linkedin, Instagram, Facebook } from "lucide-react";
 
+const services = [
+  "5S Implementation (Workplace Excellence)",
+  "amfori BSCI Support",
+  "BCI (Better Cotton Initiative)",
+  "CTPAT (Customs Trade Partnership Against Terrorism)",
+  "ESI / PF / Factories Act",
+  "FEM (Facility Environmental Module)",
+  "FSC (Forest Stewardship Council Certification)",
+  "GSV (Global Security Verification)",
+  "HIGG Index (Sustainability Assessment)",
+  "HR Consulting",
+  "ISO Certifications",
+  "OCS (Organic Content Standard) Certification Support",
+  "OEKO TEX / GOTS / GRS",
+  "RCS (Recycled Claim Standard) Certification Support",
+  "SA 8000 Certification",
+  "SEDEX (SMETA) Audit Support",
+  "SLCP (Social & Labor Convergence Program)",
+  "Social Compliance Audit",
+  "Training & Capacity Building",
+  "WRAP Certification Support",
+].sort((a, b) => a.localeCompare(b));
 
 export default function Contact() {
   const location = useLocation();
@@ -16,44 +38,60 @@ export default function Contact() {
     mobile: "",
     message: "",
   });
+
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState(null);
-  
-  // Scroll to top on page load
+  const [showServices, setShowServices] = useState(false);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [typedSearch, setTypedSearch] = useState("");
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowServices(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  // keep service preselected
+  // Keep preselected service
   useEffect(() => {
     if (preselectedService) {
       setForm((f) => ({ ...f, sertvice: preselectedService }));
     }
   }, [preselectedService]);
 
-  //clear prompt
+  // Clear success/fail popup
   useEffect(() => {
     if (status) {
-      const timer = setTimeout(() => setStatus(null), 4000); // hide after 4s
+      const timer = setTimeout(() => setStatus(null), 4000);
       return () => clearTimeout(timer);
     }
   }, [status]);
 
-  function handleChange(e) {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
-  }
+  };
 
-  function validateForm() {
+  const validateForm = () => {
     const newErrors = {};
     if (!form.name.trim()) newErrors.name = "Name is required.";
     if (!form.mobile.match(/^[0-9]{10}$/))
       newErrors.mobile = "Enter a valid 10-digit mobile number.";
-    if (!form.sertvice) newErrors.sertvice = "Please select a service.";
+    // if (!form.sertvice) newErrors.sertvice = "Please select a service.";
     return newErrors;
-  }
+  };
 
-  function submit(e) {
+  const submit = (e) => {
     e.preventDefault();
     const validation = validateForm();
     setErrors(validation);
@@ -75,107 +113,139 @@ export default function Contact() {
         },
         () => setStatus("failure")
       );
-  }
+  };
 
-  function sendWhatsApp(e) {
+  const sendWhatsApp = (e) => {
     e.preventDefault();
-
-    let newErrors = {};
+    const newErrors = {};
     if (!form.name.trim()) newErrors.name = "Name is required";
-    if (!form.mobile.trim() || form.mobile.length < 10)
+    if (!form.mobile.match(/^[0-9]{10}$/))
       newErrors.mobile = "Enter a valid 10-digit mobile number.";
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      const phoneNumber = "919994813672"; // Your WhatsApp Business Number
-      const submissionTime = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
-
+      const phoneNumber = "919994813672";
       const whatsappMessage = `*New Service Inquiry via SARR Associates Website*
 
-  👤 *Name:* ${form.name}
-  📧 *Email:* ${form.email || "N/A"}
-  📞 *Mobile:* ${form.mobile}
-  🧾 *Service Interested:* ${form.sertvice || preselectedService || "General Inquiry"}
-  💬 *Message:* ${form.message || "N/A"}
+👤 *Name:* ${form.name}
+📧 *Email:* ${form.email || "N/A"}
+📞 *Mobile:* ${form.mobile}
+🧾 *Service Interested:* ${form.sertvice || preselectedService || "General Inquiry"}
+💬 *Message:* ${form.message || "N/A"}
 
-  -----------------------
-  ✨ _"Audits Made Easy, Growth Made Possible."_ 
-  🌐 www.sarrassociates.in
-  `;
+-----------------------
+✨ _"Audits Made Easy, Growth Made Possible."_
+🌐 www.sarrassociates.in`;
 
-      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-      window.open(url, "_blank");
+      window.open(
+        `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`,
+        "_blank"
+      );
     }
-  }
+  };
+
+  // 🔠 Type-to-search timeout (resets typed letters after short delay)
+  useEffect(() => {
+    if (!typedSearch) return;
+    const timer = setTimeout(() => setTypedSearch(""), 800);
+    return () => clearTimeout(timer);
+  }, [typedSearch]);
 
   return (
     <section className="relative bg-gradient-to-br from-sky-50 to-emerald-50 py-16 px-6">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
         {/* Left Info */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="space-y-6"
+          className="space-y-8"
         >
-          <h1 className="text-4xl md:text-5xl font-extrabold text-sky-800">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-[#0E4A8F]">
             Let’s Build Trust Together
           </h1>
-          <p className="text-gray-700 text-lg leading-relaxed mt-3">
+          <p className="text-[#4A4A4A] text-lg leading-relaxed">
             {form.sertvice
-              ? `Great choice! You're exploring "${form.sertvice}". Share your details and our team will reach out with expert guidance — tailored just for you.`
-              : "Looking to simplify compliance, ace your next audit, or strengthen HR systems? Fill in your details and let our experts call you back with the right solutions."}
+              ? `Great choice! You're exploring “${form.sertvice}”. Kindly share your details and our team will reach out with expert guidance — tailored just for you.`
+              : "Looking to simplify compliance, ace your next audit, or strengthen HR systems? Kindly fill in your details and let our experts call you back with the right solutions."}
           </p>
-          <div className="space-y-4 text-gray-600">
+
+          {/* Contact Details */}
+          <div className="space-y-6 text-[#555555]">
+	    {/* Head Office */}
             <div>
-              <h3 className="font-semibold text-sky-700">📍 Address</h3>
-              <p>No. 37/14, Ganga Service Station Complex,</p>
-              <p>Avinashi Rd, Kumar Nagar,</p>
-              <p>Tiruppur,</p>
-              <p>Tamil Nadu</p>
-              <p>641-603</p>
+              <h3 className="flex items-center font-semibold text-[#0E4A8F] text-lg mb-1">
+                <MapPin className="w-5 h-5 mr-2 text-[#3191E8]" /> Head Office
+              </h3>
+              <address className="not-italic leading-relaxed">
+                No. 37/14, Ganga Service Station Complex,<br />
+                Avinashi Rd, Kumar Nagar,<br />
+                Tiruppur, Tamil Nadu<br />
+                <span className="font-medium">PIN: 641 603</span>
+              </address>
             </div>
+
+	    {/* Branch Office */}
             <div>
-              <h3 className="font-semibold text-sky-700">📞 Phone</h3>
-              <p>+91 9994813672</p>
+              <h3 className="flex items-center font-semibold text-[#0E4A8F] text-lg mb-1">
+                <MapPin className="w-5 h-5 mr-2 text-[#3191E8]" /> Branch Office
+              </h3>
+              <address className="not-italic leading-relaxed">
+                No. 12, Krishna Street,<br />
+                MGR Nagar, Pallikaranai,<br />
+                Chennai, Tamil Nadu<br />
+                <span className="font-medium">PIN: 641 603</span>
+              </address>
             </div>
+
+	    {/* Phone */}
             <div>
-              <h3 className="font-semibold text-sky-700">✉️ Email</h3>
+              <h3 className="flex items-center font-semibold text-[#0E4A8F] text-lg mb-1">
+                <Phone className="w-5 h-5 mr-2 text-[#3191E8]" /> Phone
+              </h3>
+              <p>+91 99948 13672</p>
+            </div>
+
+	    {/* Email */}
+            <div>
+              <h3 className="flex items-center font-semibold text-[#0E4A8F] text-lg mb-1">
+                <Mail className="w-5 h-5 mr-2 text-[#3191E8]" /> Email
+              </h3>
               <p>ram@sarrgroup.in</p>
             </div>
-            <div className="flex justify-center gap-8 pt-6">
-              {/* LinkedIn */}
+
+ 	    {/* Social Links */}
+            <div className="flex justify-start gap-5 pt-4">
               <a
                 href="https://www.linkedin.com/in/sarr-associates-435617249"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 rounded-full bg-sky-600 text-white hover:bg-sky-700 transition flex items-center justify-center shadow-lg"
+                className="p-3 rounded-full bg-[#0E4A8F] text-white hover:bg-[#0B3970] transition-all shadow-md"
               >
-                <Linkedin className="w-6 h-6" />
+                <Linkedin className="w-5 h-5" />
               </a>
-              {/* Instagram */}
               <a
-                href="https://www.instagram.com/sarr2_025/#"
+                href="https://www.instagram.com/sarr2_025/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 rounded-full bg-gradient-to-tr from-pink-500 to-yellow-400 text-white hover:opacity-90 transition flex items-center justify-center shadow-lg"
+                className="p-3 rounded-full bg-gradient-to-tr from-[#E4405F] to-[#F77737] text-white hover:opacity-90 transition-all shadow-md"
               >
-                <Instagram className="w-6 h-6" />
+                <Instagram className="w-5 h-5" />
               </a>
-              {/* Facebook */}
               <a
                 href="https://www.facebook.com/ramakrishnan4366"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition flex items-center justify-center shadow-lg"
+                className="p-3 rounded-full bg-[#39589F] text-white hover:bg-[#2C427A] transition-all shadow-md"
               >
-                <Facebook className="w-6 h-6" />
+                <Facebook className="w-5 h-5" />
               </a>
             </div>
           </div>
         </motion.div>
 
-        {/* Form */}
+        {/* Form Side */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -201,9 +271,7 @@ export default function Contact() {
                 onChange={handleChange}
                 className="w-full border p-3 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none"
               />
-              {errors.name && (
-                <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-              )}
+              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
             </div>
 
             {/* Email */}
@@ -220,45 +288,99 @@ export default function Contact() {
               />
             </div>
 
-            {/* Service */}
-            <div>
+            {/* Service Dropdown */}
+            <div className="relative" ref={dropdownRef}>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
                 Service <span className="text-red-500">*</span>
               </label>
-              <select
-                name="sertvice"
-                value={form.sertvice}
-                onChange={handleChange}
-                className="w-full border p-3 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none"
-              >
-                <option value="">Select Service</option>
 
-                {[
-                  "SEDEX (SMETA) Audit Support",
-                  "5S Implementation (Workplace Excellence)",
-                  "amfori BSCI & WRAP Support",
-                  "CTPAT (Customs Trade Partnership Against Terrorism)",
-                  "ESI / PF / Factories Act",
-                  "FEM (Facility Environmental Module)",
-                  "FSC (Forest Stewardship Council Certification)",
-                  "HIGG Index (Sustainability Assessment)",
-                  "HR Consulting",
-                  "ISO Certifications",
-                  "OCS (Organic Content Standard)",
-                  "OEKO TEX / GOTS / GRS",
-                  "RCS (Recycled Claim Standard)",
-                  "SA 8000 Certification",
-                  "SLCP (Social & Labor Convergence Program)",
-                  "Social Compliance Audit",
-                  "Training & Capacity Building",
-                ]
-                  .sort((a, b) => a.localeCompare(b))
-                  .map((service) => (
-                    <option key={service} value={service}>
+              <div
+                tabIndex={0}
+                onClick={() => setShowServices((prev) => !prev)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    if (showServices && highlightedIndex >= 0) {
+                      handleChange({
+                        target: { name: "sertvice", value: services[highlightedIndex] },
+                      });
+                      setShowServices(false);
+                    } else {
+                      setShowServices(true);
+                    }
+                  } else if (e.key === "ArrowDown") {
+                    e.preventDefault();
+                    setShowServices(true);
+                    setHighlightedIndex((prev) => {
+                      const next = prev < services.length - 1 ? prev + 1 : 0;
+                      document.getElementById(`service-${next}`)?.scrollIntoView({ block: "nearest" });
+                      return next;
+                    });
+                  } else if (e.key === "ArrowUp") {
+                    e.preventDefault();
+                    setShowServices(true);
+                    setHighlightedIndex((prev) => {
+                      const next = prev > 0 ? prev - 1 : services.length - 1;
+                      document.getElementById(`service-${next}`)?.scrollIntoView({ block: "nearest" });
+                      return next;
+                    });
+                  } else if (e.key === "Escape") {
+                    setShowServices(false);
+                  } else if (/^[a-zA-Z0-9]$/.test(e.key)) {
+                    setShowServices(true);
+                    setTypedSearch((prev) => prev + e.key.toLowerCase());
+                    const search = (typedSearch + e.key.toLowerCase()).trim();
+                    const foundIndex =
+                      services.findIndex((s) => s.toLowerCase().startsWith(search)) >= 0
+                        ? services.findIndex((s) => s.toLowerCase().startsWith(search))
+                        : -1;
+                    if (foundIndex >= 0) {
+                      setHighlightedIndex(foundIndex);
+                      document.getElementById(`service-${foundIndex}`)?.scrollIntoView({ block: "nearest" });
+                    }
+                  }
+                }}
+                className="w-full border p-3 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none bg-white cursor-pointer flex justify-between items-center"
+              >
+                <span>{form.sertvice || "Select Service"}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className={`w-5 h-5 transition-transform ${showServices ? "rotate-180" : "rotate-0"}`}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+
+              {showServices && (
+                <ul className="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-lg border bg-white shadow-lg service-scroll">
+                  {services.map((service, index) => (
+                    <li
+                      key={service}
+                      id={`service-${index}`}
+                      onClick={() => {
+                        handleChange({ target: { name: "sertvice", value: service } });
+                        setShowServices(false);
+                      }}
+                      onMouseEnter={() => setHighlightedIndex(index)}
+                      className={`p-3 cursor-pointer ${
+                        highlightedIndex === index
+                          ? "bg-sky-100 text-sky-700"
+                          : "hover:bg-sky-50"
+                      }`}
+                    >
                       {service}
-                    </option>
+                    </li>
                   ))}
-              </select>
+                </ul>
+              )}
+
+              {errors.sertvice && (
+                <p className="text-red-500 text-sm mt-1">{errors.sertvice}</p>
+              )}
             </div>
 
             {/* Mobile */}
@@ -273,9 +395,7 @@ export default function Contact() {
                 onChange={handleChange}
                 className="w-full border p-3 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none"
               />
-              {errors.mobile && (
-                <p className="text-red-500 text-sm mt-1">{errors.mobile}</p>
-              )}
+              {errors.mobile && <p className="text-red-500 text-sm mt-1">{errors.mobile}</p>}
             </div>
 
             {/* Message */}
@@ -292,7 +412,7 @@ export default function Contact() {
               />
             </div>
 
-            {/* Actions */}
+            {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full mt-4">
               <motion.button
                 type="submit"
@@ -313,7 +433,7 @@ export default function Contact() {
             </div>
           </form>
 
-          {/* Modern Success/Failure Popup */}
+          {/* Popup */}
           <AnimatePresence>
             {status && (
               <motion.div
