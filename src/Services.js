@@ -317,22 +317,23 @@ const SERVICES = [
   },
   {
     id: 21,
-    title: "BAS (Business Accountability Standard) Certification Support",
+    title: "BIS Certification (ISI Mark / CRS Scheme)",
     summary:
-      "Ensure business transparency, ethical governance, and social responsibility through BAS certification.",
+      "Mandatory certification ensuring product safety, quality, and compliance with Indian standards.",
     icon: <ShieldCheck className="w-10 h-10 text-indigo-600" />,
-    image: "/images/bas_certification.jpg",
+    image: "/images/bis_certification.jpg",
     overview:
-      "The Business Accountability Standard (BAS) is designed to promote ethical business practices, integrity, and transparent corporate operations across industries. It evaluates governance systems, stakeholder engagement, and accountability structures within organizations.",
+      "BIS (Bureau of Indian Standards) Certification is required for many products sold in India, ensuring they meet prescribed safety and quality standards. It includes ISI, CRS (Compulsory Registration Scheme), and FMCS schemes.",
     value:
-      "We help companies align with BAS requirements by building structured compliance frameworks, training teams, and preparing all necessary documentation for successful certification.",
+      "We support manufacturers and importers in obtaining BIS approval smoothly—from documentation to lab testing and final certification.",
     audience:
-      "Medium to large-scale enterprises aiming to demonstrate corporate accountability and transparent business practices.",
+      "Electronics, electrical appliances, textiles, chemicals, footwear, steel, and other regulated product manufacturers.",
     benefits: [
-      "Comprehensive BAS framework gap assessment",
-      "Policy drafting and implementation support",
-      "Audit documentation and reporting assistance",
-      "Training and awareness for leadership teams",
+      "Complete guidance for ISI / CRS / FMCS certification",
+      "Product testing support through BIS-recognized labs",
+      "Documentation, application filing & portal support",
+      "Technical file preparation & compliance guidance",
+      "End-to-end coordination until certificate approval",
     ],
   },
   {

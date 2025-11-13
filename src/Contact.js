@@ -25,7 +25,7 @@ const services = [
   "Social Compliance Audit",
   "Training & Capacity Building",
   "WRAP Certification Support",
-  "BAS (Business Accountability Standard) Certification Support",
+  "BIS Certification (ISI Mark / CRS Scheme)",
 ].sort((a, b) => a.localeCompare(b));
 
 export default function Contact() {
