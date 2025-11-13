@@ -25,6 +25,7 @@ const services = [
   "Social Compliance Audit",
   "Training & Capacity Building",
   "WRAP Certification Support",
+  "BAS (Business Accountability Standard) Certification Support",
 ].sort((a, b) => a.localeCompare(b));
 
 export default function Contact() {
@@ -195,7 +196,6 @@ export default function Contact() {
                 No. 12, Krishna Street,<br />
                 MGR Nagar, Pallikaranai,<br />
                 Chennai, Tamil Nadu<br />
-                <span className="font-medium">PIN: 641 603</span>
               </address>
             </div>
 

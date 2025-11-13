@@ -178,7 +178,7 @@ export default function Home() {
     },
     {
       name: "Management System Certifications",
-      desc: "Achieve ISO 9001, ISO 14001, ISO 45001, and IATF certifications that enhance global credibility.",
+      desc: "Achieve ISO 9001, ISO 14001, ISO 45001, IATF and BAS certifications that enhance global credibility.",
       image: "/images/ISO_home.jpg",
     },
     {
