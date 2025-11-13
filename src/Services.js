@@ -316,6 +316,26 @@ const SERVICES = [
     ],
   },
   {
+    id: 21,
+    title: "BAS (Business Accountability Standard) Certification Support",
+    summary:
+      "Ensure business transparency, ethical governance, and social responsibility through BAS certification.",
+    icon: <ShieldCheck className="w-10 h-10 text-indigo-600" />,
+    image: "/images/bas_certification.jpg",
+    overview:
+      "The Business Accountability Standard (BAS) is designed to promote ethical business practices, integrity, and transparent corporate operations across industries. It evaluates governance systems, stakeholder engagement, and accountability structures within organizations.",
+    value:
+      "We help companies align with BAS requirements by building structured compliance frameworks, training teams, and preparing all necessary documentation for successful certification.",
+    audience:
+      "Medium to large-scale enterprises aiming to demonstrate corporate accountability and transparent business practices.",
+    benefits: [
+      "Comprehensive BAS framework gap assessment",
+      "Policy drafting and implementation support",
+      "Audit documentation and reporting assistance",
+      "Training and awareness for leadership teams",
+    ],
+  },
+  {
     id: 12,
     title: "HIGG Index (Sustainability Assessment)",
     summary: "Evaluate and improve environmental and social performance.",
